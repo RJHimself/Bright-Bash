@@ -136,6 +136,14 @@ function PrepareForSed {
 }
 
 
+function ReplaceLine {
+    local lineIndex="$((1 + $(Trim "$1")))"
+    local lineContent="$(Trim "$2")"
+    local file="$(Trim "$3")"
+
+    DeleteLine "$lineIndex" "$file"
+    AddLine "$lineIndex" "$lineContent" "$file"
+}
 function AddLine {
     local lineIndex="$((1 + $(Trim "$1")))"
     local lineContent="$(Trim "$2")"
