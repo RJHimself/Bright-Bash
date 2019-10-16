@@ -105,7 +105,7 @@ function addPkg_gnomeExtensions {
     local gndExtensions
 
 
-    gndExtensions="$(ListDir "$gndExtLocation")"
+    gndExtensions="$(ListDir "$gndExtLocation" "F")"
     gndExtensions="$(CutLines_Empty "$gndExtensions")"
     gndExtensions="$(SmlTrim "$gndExtensions")"
 
