@@ -22,13 +22,7 @@ function addPkg_apt {
     fi
 
 
-    # Changing the Way Strings Function to Loop Through Words
-    setopt shwordsplit
-
     for pkg in $packages; do yes | sudo apt install -y $pkg; done
-
-    # Chaning Back to the Default Way Strings Functioned to prevent Functioning Problems
-    unsetopt shwordsplit
 
 
     yes | sudo apt upgrade
