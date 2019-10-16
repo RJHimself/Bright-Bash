@@ -9,7 +9,7 @@ LibFullPath=""
 # Getting Original Library's Directory
 [[ ! -d "$ExecutablesDir" ]] && mkdir -m 777 "$ExecutablesDir"
 if [[ -f "$BashLibPath" ]]; then LibFullPath="$(readlink -f "$BashLibPath")"
-elif [[ "$BASH_SOURCE" != "" ]]; then echo LibFullPath="$BASH_SOURCE/lib.sh"
+elif [[ "$BASH_SOURCE" != "" ]]; then echo LibFullPath="$BASH_SOURCE"
 else LibFullPath="$0"
 fi
 DIR="$(dirname "$LibFullPath")"
