@@ -6,7 +6,7 @@ This is an open source bash library to write scripts with more ease, achieving t
 
 ```bash
 mkdir "$HOME/lib"
-git clone https://github.com/RJHimself/Bright-Bash "$HOME/lib"
+git clone https://github.com/RJHimself/Bright-Bash "$HOME/lib/bright-bash"
 source "$HOME/lib/Bright-Bash"
 ```
 
