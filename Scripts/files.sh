@@ -1,6 +1,10 @@
 function FileExists { [[ -f "$1" ]] && echo true || echo false; }
 function FolderExists { [[ -d "$1" ]] && echo true || echo false; }
 
+function FileNotExists { $(FileExists "$@") && echo false || echo true; }
+function FolderNotExists { $(FolderExists "$@") && echo false || echo true; }
+
+
 function IsFile { echo $(FileExists "$@"); }
 function IsFolder { echo $(FolderExists "$@"); }
 

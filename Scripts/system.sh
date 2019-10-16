@@ -188,7 +188,11 @@ function InjectLib {
 
     function ShellLacksLib {
         local shellFile="$1"
-        local shellContent="$(ReadFile "$shellFile")"
+        local shellContent
+
+
+        if $(FileNotExists "$shellFile"); then echo false; return;fi
+        shellContent="$(ReadFile "$shellFile")"
 
         if $(ContainsAny "$shellContent" "source \"$HOME/bin/$LibName\"" "source \"\$HOME/bin/$LibName\"");
         then echo false; else echo true; fi
