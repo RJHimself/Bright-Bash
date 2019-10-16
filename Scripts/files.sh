@@ -107,6 +107,9 @@ function ListDir {
     $hasLimit && finalDepth=" -maxdepth $depth "
 
 
+    # Check if folder Exists
+    if $(FolderExists "$finalPath"); then echo ""; return;fi
+
     # Final Result
     #? Sudo / Admin / Root Support
     if $(IsAdmin); then list="$(sudo find "$finalPath" $(Trim "$finalDepth") $(Trim "$finalType"))"
