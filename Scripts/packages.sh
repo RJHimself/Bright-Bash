@@ -12,11 +12,11 @@ function addPkg_ghDebRelease {
 
 function addPkg_apt {
 
-    local packages=$1
-    local repo=$2
+    local packages="$1"
+    local repo="$2"
 
 
-    if $(IsNotEmpty $repo); then
+    if $(IsNotEmpty "$repo"); then
         echo -e "\n" | sudo add-apt-repository -y "$repo"
         sudo apt update
     fi
