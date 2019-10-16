@@ -243,12 +243,12 @@ function GetCodeBlockComment {
     if $(IsAny "$fileType" "txt" "sh" "bash" "zsh" "fish"); then
     blockStart="#========================{ START BLOCK }========================
     # $blockName"
-    blockEnd="#========================{ END BLOCK }========================"
+    blockEnd="#========================={ END BLOCK }========================="
 
     elif $(IsAny "$fileType" "js" "ts" "jsx" "tsx"); then
     blockStart="//========================{ START BLOCK }========================
     # $blockName"
-    blockEnd="//========================{ END BLOCK }========================"
+    blockEnd="//========================={ END BLOCK }========================="
     fi
 
 
