@@ -11,7 +11,6 @@ function addPkg_ghDebRelease {
 }
 
 function addPkg_apt {
-
     local packages="$1"
     local repo="$2"
 
