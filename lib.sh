@@ -10,17 +10,11 @@ LibFullPath=""
 [[ ! -d "$ExecutablesDir" ]] && mkdir -m 777 "$ExecutablesDir"
 
 if [[ -f "$BashLibPath" ]]; then LibFullPath="$(readlink -f "$BashLibPath")"
-elif [[ "$BASH_SOURCE" != "" ]]; then echo LibFullPath="$BASH_SOURCE"
+elif [[ "$BASH_SOURCE" != "" ]]; then LibFullPath="$BASH_SOURCE"
 else LibFullPath="$0"
 fi
 
 DIR="$(dirname "$LibFullPath")"
-
-
-echo "--------------------------"
-echo "LibFullPath: $LibFullPath"
-echo "DIR: $DIR"
-echo "--------------------------"
 
 # Creating the "$HOME/bin/bright-bash" LINK
 sudo ln -sf "$LibFullPath" "$BashLibPath"
