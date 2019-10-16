@@ -117,7 +117,7 @@ function addPkg_gnomeExtensions {
         mkdir -p "$HOME/.local/share/gnome-shell/extensions/$uuid"
         unzip -q "$extension" -d ~/.local/share/gnome-shell/extensions/$uuid/
 
-        gnome-shell-extension-tool -e $uuid
+        gnome-shell-extension-tool -e "$uuid"
     done <<< "$gndExtensions"
 }
 
