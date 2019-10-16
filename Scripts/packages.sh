@@ -107,4 +107,11 @@ function updatePkg_apt {
     yes | sudo apt upgrade
     # Fixing Broken Packages
     yes | sudo apt --fix-broken install
+
+
+    # Update Package Availability Database
+    sudo apt update
+    yes | sudo apt upgrade
+    # Fixing Broken Packages
+    yes | sudo apt --fix-broken install
 }
