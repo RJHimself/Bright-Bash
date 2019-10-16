@@ -22,7 +22,7 @@ function addPkg_apt {
     fi
 
 
-    for pkg in $packages; do yes | sudo apt install -y $pkg; done
+    for pkg in $packages; do yes | sudo apt install -y "$pkg"; done
     yes | sudo apt upgrade
 }
 
