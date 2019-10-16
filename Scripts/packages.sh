@@ -17,12 +17,12 @@ function addPkg_apt {
 
 
     if $(IsNotEmpty "$repo"); then
-        echo -e "\n" | sudo add-apt-repository -y "$repo"
-        sudo apt update
+    echo -e "\n" | sudo add-apt-repository -y "$repo"
     fi
 
 
     for pkg in $packages; do yes | sudo apt install -y "$pkg"; done
+    sudo apt update
     yes | sudo apt upgrade
 }
 
