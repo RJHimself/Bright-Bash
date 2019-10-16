@@ -107,8 +107,8 @@ function ListDir {
     $hasLimit && finalDepth=" -maxdepth $depth "
 
 
-    # Check if folder Exists
-    if $(FolderExists "$finalPath"); then echo ""; return;fi
+    # Return IF Folder does NOT Exist
+    if $(FolderNotExists "$finalPath"); then echo ""; return;fi
 
     # Final Result
     #? Sudo / Admin / Root Support
