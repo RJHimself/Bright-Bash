@@ -102,6 +102,9 @@ function addPkg_wget {
 
 
 function updatePkg_apt {
+    # Update Package Availability Database
     sudo apt update
     yes | sudo apt upgrade
+    # Fixing Broken Packages
+    yes | sudo apt --fix-broken install
 }
