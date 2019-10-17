@@ -107,6 +107,32 @@ function SudoAccess {
 }
 
 
+function AutoLogin {
+    local state="$1"
+    local loginFile="/etc/gdm3/custom.conf"
+
+    # ------------{ Bypass Login }------------
+    # Bypass Lock Screen (GDM - Display Manager / Login Screen Manager)
+
+
+    case "$(RunningDesktop)" in
+    "GNOME")
+        if $(IsON "$state"); then
+        sudo sed --in-place "s/.*AutomaticLoginEnable =.*/AutomaticLoginEnable=true/" "$loginFile"
+        sudo sed --in-place "s/.*AutomaticLogin =.*/AutomaticLogin=$USER/" "$loginFile"
+        elif $(IsOFF "$state"); then
+        sudo sed --in-place "s/.*AutomaticLoginEnable=.*/# AutomaticLoginEnable=true/" "$loginFile"
+        sudo sed --in-place "s/.*AutomaticLogin=.*/# AutomaticLogin=$USER/" "$loginFile"
+        fi
+    ;;
+    "KDE")
+    ;;
+    "XFCE")
+    ;;
+    esac
+}
+
+
 function PrintFunction { declare -f "$1"; }
 
 
