@@ -144,6 +144,27 @@ function IsDesktop {
 
     $(Contains "$tmpDesktop" "$currentDesktop") && echo true || echo false
 }
+function GetDesktopVersion {
+    local version
+    local versionLocation
+
+
+    case "$(RunningDesktop)" in
+    "GNOME")
+        versionLocation="/usr/share/gnome/gnome-version.xml"
+        version="$(ReadXMLValue "platform" "$versionLocation")"
+        version="$version"".""$(ReadXMLValue "minor" "$versionLocation")"
+        version="$version"".""$(ReadXMLValue "micro" "$versionLocation")"
+    ;;
+    "KDE")
+    ;;
+    "XFCE")
+    ;;
+    esac
+
+
+    echo "$version"
+}
 
 
 function GenerateDistroVars {
