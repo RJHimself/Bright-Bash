@@ -215,6 +215,10 @@ function GetDesktopVersion {
 }
 
 
+function GenerateSystemVars {
+    GenerateDistroVars
+    GenerateComputerSpecsVars
+}
 function GenerateDistroVars {
     OS=""
     VER=""
@@ -248,6 +252,13 @@ function GenerateDistroVars {
         OS=$(uname -s)
         VER=$(uname -r)
     fi
+}
+function GenerateComputerSpecsVars {
+    RAM=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+    # Getting Only the GB Values
+    RAM=$(Reverse $RAM)
+    RAM=${RAM: 6}
+    RAM=$(Reverse $RAM)
 }
 
 

@@ -28,7 +28,7 @@ filesToSource="$(find "$DIR/Scripts/" -type f)"
 while IFS= read -r file; do source "$file"; done <<< "$filesToSource"
 
 # Generating "OS" and "VER" Distro Variables
-GenerateDistroVars
+GenerateSystemVars
 # Adding Every Folder under "./FileAsFunction" to $PATH
 AddToPath "$DIR/FileAsFunction/**"
 # Injecting Bright Bash Library to Any Shell
