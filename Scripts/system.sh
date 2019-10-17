@@ -153,6 +153,27 @@ function Reboot {
     sudo reboot
     sudo systemctl reboot
 }
+function AutoStartup {
+    local file="$1"
+    local fileName="$(GetFileName_NoExtension "$file")"
+    local tmpAutoStartup="$(TempFile)"
+
+
+    echo "[Desktop Entry]
+    Version=1.0
+    Exec=sh -c 'bash "$@"'
+    Icon=
+    Name=$fileName
+    GenericName=$fileName
+    Comment=$fileName
+    Encoding=UTF-8
+    Terminal=true
+    Type=Application
+    Categories=Application;Network;" > "$tmpAutoStartup"
+
+
+    mv "$tmpAutoStartup" "$AutoStartupPath/$fileName.desktop"
+}
 
 
 function PrintFunction { declare -f "$1"; }

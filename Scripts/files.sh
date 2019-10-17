@@ -40,11 +40,26 @@ function UpdateFile {
 
 
 function GetFileName {
-    local directory="$1"
+    local directory="$(Trim "$1")"
     local fileName_Index="$((1 + $(IndexOf_Last "/" "$directory")))"
     local fileName="$(MidToEnd $fileName_Index "$directory")"
 
     echo "$fileName"
+}
+function GetFileName_NoExtension {
+    local directory="$(Trim "$1")"
+    local fileName="$(GetFileName "$directory")"
+
+    local extensionIndex="$(IndexOf_Last "." "$fileName")"
+
+    # If File Name Lacks an Extension
+    if $(Lacks "\." "$fileName"); then echo "$fileName"; return; fi
+
+    # If File Name does Not have a name before the Extension
+    if $(IsEmpty ${fileName: 0:$extensionIndex}); then echo "${fileName: $((1 + $extensionIndex))}"; return; fi
+
+    # If file Name as a Name & an Extension
+    echo "${fileName: 0:$extensionIndex}"
 }
 function RemoveFolderSlash {
     #? SML Support
