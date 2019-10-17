@@ -143,5 +143,23 @@ function updatePkg_apt {
     # Fixing Broken Packages
     yes | sudo apt --fix-broken install
 }
+function updatePkg_pacman {
+    pamac checkupdates -a
+    pamac upgrade -a
+}
+function updatePkg_ALL {
+    # APT Packages
+    $(IsPkgManagerRunning "apt") && updatePkg_apt
+    # SNAP Packages
+    $(IsPkgManagerRunning "snap") && sudo snap refresh
+    # Pacman AUR Packages
+    $(IsPkgManagerRunning "pamac") && updatePkg_pacman
+    # Pamac Packages
+    $(IsPkgManagerRunning "pacman") && sudo pacman -Syu
+    # YUM Packages
+    $(IsPkgManagerRunning "yum") && sudo yum update
+    # Flatpak Packages
+    $(IsPkgManagerRunning "flatpak") && sudo flatpak update
+}
 
 function IsPkgManagerRunning { $(IsNotEmpty "$($1 --version)") && echo true || echo false; }
