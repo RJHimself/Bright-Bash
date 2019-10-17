@@ -174,6 +174,12 @@ function AutoStartup {
 
     echo "$fileContent" > "$tmpAutoStartup"
     mv "$tmpAutoStartup" "$AutoStartupPath/$fileName.desktop"
+
+
+    # Make it Executable
+    sudo chmod +x "$AutoStartupPath/$fileName.desktop"
+    # Remove All User Restrictions to this File
+    sudo chmod -R 775 "$AutoStartupPath/$fileName.desktop"
 }
 
 
