@@ -143,6 +143,14 @@ function PrepareForSed {
 }
 
 
+function ReadXMLValue {
+    local element="$1"
+    local file="$2"
+
+    cat "$file" | grep -oPm1 "(?<=<$element>)[^<]+"
+}
+
+
 function ReplaceLine {
     local lineIndex="$((1 + $(Trim "$1")))"
     local lineContent="$(Trim "$2")"
