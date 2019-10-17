@@ -120,6 +120,13 @@ function addPkg_gnomeExtensions {
         gnome-shell-extension-tool -e "$uuid"
     done <<< "$gndExtensions"
 }
+function addPkg_Snap {
+    local thisSnap="$1"
+
+    sudo snap install "$thisSnap"
+    # Actually Installing the Snap Acknowledged Packages
+    sudo snap install --classic "$thisSnap"
+}
 
 
 function updatePkg_apt {
