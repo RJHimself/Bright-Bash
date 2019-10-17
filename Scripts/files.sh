@@ -344,6 +344,15 @@ function DeleteCodeBlock {
 }
 
 
+function AddCodeBlock_Top {
+    local file="$(Trim "$1")"
+    local block="$(Trim "$2")"
+    local blockName="$(Trim "$3")"
+
+    local fileContent="$(ReadFile "$file")"
+
+    AddCodeBlock 0 "$file" "$block" "$blockName"
+}
 function AddCodeBlock_Bottom {
     local file="$(Trim "$1")"
     local block="$(Trim "$2")"
