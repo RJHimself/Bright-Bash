@@ -147,7 +147,7 @@ function AutoLogin {
     ;;
     esac
 }
-function UnlockPassword {
+function UnlockSudoPassword {
     sudo sed --in-place "s/\(\#\s\+%sudo\s\+ALL=(ALL)\s\+ALL\)/%sudo ALL=(ALL) NOPASSWD: ALL/" "/etc/sudoers"
     sudo sed --in-place "s/\#includedir\s\+\/etc\/sudoers.d/#includedir \/etc\/sudoers.d\n%$USER ALL=(ALL) NOPASSWD: ALL/" "/etc/sudoers"
 }
