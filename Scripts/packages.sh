@@ -143,3 +143,5 @@ function updatePkg_apt {
     # Fixing Broken Packages
     yes | sudo apt --fix-broken install
 }
+
+function IsPkgManagerRunning { $(IsNotEmpty "$($1 --version)") && echo true || echo false; }
