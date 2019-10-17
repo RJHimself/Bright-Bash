@@ -112,7 +112,12 @@ function AutoLogin {
     local loginFile="/etc/gdm3/custom.conf"
 
     # ------------{ Bypass Login }------------
-    # Bypass Lock Screen (GDM - Display Manager / Login Screen Manager)
+    # Here are the Different Types of DMs (Display Managers)
+    # GDM
+    # LightDM
+    # SDDM
+    # LXDM
+    # XDM
 
 
     case "$(RunningDesktop)" in
