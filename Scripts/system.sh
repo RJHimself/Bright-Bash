@@ -109,7 +109,7 @@ function SudoAccess {
 
 function AutoLogin {
     local state="$1"
-    local loginFile="/etc/gdm3/custom.conf"
+    local loginFile
 
     # ------------{ Bypass Login }------------
     # Here are the Different Types of DMs (Display Managers)
@@ -122,6 +122,8 @@ function AutoLogin {
 
     case "$(RunningDesktop)" in
     "GNOME")
+        loginFile="/etc/gdm3/custom.conf"
+
         if $(IsON "$state"); then
         sudo sed --in-place "s/.*AutomaticLoginEnable =.*/AutomaticLoginEnable=true/" "$loginFile"
         sudo sed --in-place "s/.*AutomaticLogin =.*/AutomaticLogin=$USER/" "$loginFile"
@@ -131,6 +133,15 @@ function AutoLogin {
         fi
     ;;
     "KDE")
+        loginFile="/etc/sddm.conf"
+
+        if $(IsON "$state"); then
+        sudo kwriteconfig5 --file "$loginFile" --group Autologin --key Session "plasma.desktop"
+        sudo kwriteconfig5 --file "$loginFile" --group Autologin --key User "$USER"
+        elif $(IsOFF "$state"); then
+        sudo kwriteconfig5 --file "$loginFile" --group Autologin --key Session "plasma"
+        sudo kwriteconfig5 --file "$loginFile" --group Autologin --key User ""
+        fi
     ;;
     "XFCE")
     ;;
