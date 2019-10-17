@@ -147,6 +147,12 @@ function AutoLogin {
     ;;
     esac
 }
+function Reboot {
+    reboot
+    systemctl reboot
+    sudo reboot
+    sudo systemctl reboot
+}
 
 
 function PrintFunction { declare -f "$1"; }
