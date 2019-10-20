@@ -37,7 +37,7 @@ function Exclude_First {
     local string="$(Trim "$2")"
 
     local strLength="$(Length "$string")"
-    local finalString="${string: $(($strLength-$amount))}"
+    local finalString="${string: $amount:$strLength}"
 
     echo "$finalString"
 }
