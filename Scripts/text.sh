@@ -32,6 +32,26 @@ function Mid {
 }
 
 
+function Exclude_First {
+    local amount="$(Trim "$1")"
+    local string="$(Trim "$2")"
+
+    local strLength="$(Length "$string")"
+    local finalString="${string: $(($strLength-$amount))}"
+
+    echo "$finalString"
+}
+function Exclude_Last {
+    local amount="$(Trim "$1")"
+    local string="$(Trim "$2")"
+
+    local strLength="$(Length "$string")"
+    local finalString="${string: 0:$(($strLength-$amount))}"
+
+    echo "$finalString"
+}
+
+
 function MidToStart {
     local length="$1"
     local string="$2"

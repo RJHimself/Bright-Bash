@@ -84,6 +84,24 @@ function DconfSettings {
 }
 
 
+function UploadFiles {
+    local gitRepo="$1"
+    local target="$2"
+    local backupDir="$3"
+    local sourceDir="$4"
+
+
+    backupDir="$(SwitchDirSymbols "$backupDir")"
+    sourceDir="$(SwitchDirSymbols "$sourceDir")"
+    [[ "${target: -1}" == "/" ]] && target="${target: 0:$(($(Length "$target"))-1)}"
+
+    
+}
+function DownloadFiles {
+
+}
+
+
 function IsAdmin { HasSudo; }
 function IsRoot { [[ $EUID -ne 0 ]] && echo false || echo true; }
 
