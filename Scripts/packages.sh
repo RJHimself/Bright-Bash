@@ -1,4 +1,4 @@
-function addPkg_ghDebRelease {
+function AddPkg_GhDebRelease {
     set -e
     loc="$(mktemp).deb"
     case $1 in
@@ -10,7 +10,7 @@ function addPkg_ghDebRelease {
     sudo rm -f "$loc"
 }
 
-function addPkg_apt {
+function AddPkg_apt {
     local packages="$1"
     local repo="$2"
 
@@ -25,7 +25,7 @@ function addPkg_apt {
     yes | sudo apt upgrade
 }
 
-function addPkg_ghClone {
+function AddPkg_GhClone {
     local oldDir=$PWD
     local tmpFolder=$(mktemp -d)
 
@@ -52,7 +52,7 @@ function addPkg_ghClone {
     sudo rm -rf "$tmpFolder"
 }
 
-function addPkg_wget {
+function AddPkg_wget {
     # Replaces These
 
     # wget "https://URL/To/Pakage"
@@ -100,7 +100,7 @@ function addPkg_wget {
     sudo apt update
 }
 
-function addPkg_gnomeExtensions {
+function AddPkg_GnomeExtensions {
     local gndExtLocation="$1"
     local gndExtensions
 
@@ -120,7 +120,7 @@ function addPkg_gnomeExtensions {
         gnome-shell-extension-tool -e "$uuid"
     done <<< "$gndExtensions"
 }
-function addPkg_Snap {
+function AddPkg_Snap {
     local thisSnap="$1"
 
     sudo snap install "$thisSnap"
@@ -129,7 +129,7 @@ function addPkg_Snap {
 }
 
 
-function updatePkg_apt {
+function UpdatePkg_apt {
     # Update Package Availability Database
     sudo apt update
     yes | sudo apt upgrade
@@ -143,17 +143,17 @@ function updatePkg_apt {
     # Fixing Broken Packages
     yes | sudo apt --fix-broken install
 }
-function updatePkg_pacman {
+function UpdatePkg_pacman {
     pamac checkupdates -a
     pamac upgrade -a
 }
-function updatePkg_ALL {
+function UpdatePkg_ALL {
     # APT Packages
-    $(IsPkgManagerRunning "apt") && updatePkg_apt
+    $(IsPkgManagerRunning "apt") && UpdatePkg_apt
     # SNAP Packages
     $(IsPkgManagerRunning "snap") && sudo snap refresh
     # Pacman AUR Packages
-    $(IsPkgManagerRunning "pamac") && updatePkg_pacman
+    $(IsPkgManagerRunning "pamac") && UpdatePkg_pacman
     # Pamac Packages
     $(IsPkgManagerRunning "pacman") && sudo pacman -Syu
     # YUM Packages
