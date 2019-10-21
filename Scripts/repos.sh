@@ -40,4 +40,37 @@ function gitCloneAll {
     git pull --all
 }
 
+function gitGetChanges {
+    local fromDir="$(Trim "$1")"
+    local toDir="$(Trim "$2")"
+
+    local tmpOldPath="$(Trim "$PWD")"
+
+
+    if $(FolderNotExists "$fromDir"); then return; fi
+
+
+    cd "$fromDir"
+    sudo git ls-files -m | sudo tar Tc - | sudo tar Cx "$toDir"
+    cd "$tmpOldPath"
+}
+
+function gitSync {
+    local fromDir="$(Trim "$1")"
+    local toDir="$(Trim "$2")"
+
+    local tmpOldPath="$(Trim "$PWD")"
+
+
+    if $(FolderNotExists "$fromDir"); then return; fi
+
+
+    cd "$fromDir"
+    gitGetChanges "$fromDir" "$toDir"
+    git add -A
+    git commit -m "$(Today)"
+    cd "$tmpOldPath"
+}
+
+
 function linkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
