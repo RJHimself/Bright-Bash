@@ -31,7 +31,7 @@ function addPkg_ghClone {
 
     local url="$2"
     local fileToExe="$1"
-    local folder=$(gh_getRepoName "$url")
+    local folder=$(Gh_GetRepoName "$url")
 
 
     cd "$tmpFolder"

@@ -1,8 +1,8 @@
-function lastestReleaseLink { echo "https://api.github.com/repos/$1/$2/releases/latest"; }
-function ghRelease { curl -s "$1" | grep -o "$2"; }
+function LastestReleaseLink { echo "https://api.github.com/repos/$1/$2/releases/latest"; }
+function GhRelease { curl -s "$1" | grep -o "$2"; }
 
 
-function gh_getRepoName {
+function Gh_GetRepoName {
     local url=$1
 
     local gitRepo=${url##*/}
@@ -13,13 +13,13 @@ function gh_getRepoName {
     echo $gitRepo
 }
 
-function gitCloneAll {
+function GitCloneAll {
     # ONE LINER
     # git branch -a | grep -v HEAD | perl -ne 'chomp($_); s|^\*?\s*||; if (m|(.+)/(.+)| && not $d{$2}) {print qq(git branch --track $2 $1/$2\n)} else {$d{$_}=1}' | csh -xfs
 
     local repoUrl="$1"
     local repoLocal="$2"
-    local repo="$(gh_getRepoName "$repoUrl")"
+    local repo="$(Gh_GetRepoName "$repoUrl")"
 
 
     git clone "$repoUrl" "$repoLocal"
@@ -40,7 +40,7 @@ function gitCloneAll {
     git pull --all
 }
 
-function gitGetChanges {
+function GitGetChanges {
     local fromDir="$(Trim "$1")"
     local toDir="$(Trim "$2")"
 
@@ -55,7 +55,7 @@ function gitGetChanges {
     cd "$tmpOldPath"
 }
 
-function gitSync {
+function GitSync {
     local fromDir="$(Trim "$1")"
     local toDir="$(Trim "$2")"
 
@@ -66,11 +66,11 @@ function gitSync {
 
 
     cd "$fromDir"
-    gitGetChanges "$fromDir" "$toDir"
+    GitGetChanges "$fromDir" "$toDir"
     git add -A
     git commit -m "$(Today)"
     cd "$tmpOldPath"
 }
 
 
-function linkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
+function LinkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
