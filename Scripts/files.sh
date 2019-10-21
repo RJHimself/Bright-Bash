@@ -380,6 +380,8 @@ function AddCodeBlock_Bottom {
 }
 
 
+function DownloadFiles { TransferFiles "DOWNLOAD" "$@"; }
+function UploadFiles { TransferFiles "UPLOAD" "$@"; }
 function TransferFiles {
     local transferWay="$(Trim "$(UCase "$1")")"
     local useGitRepo="$(Trim "$2")"
@@ -400,5 +402,3 @@ function TransferFiles {
     elif [[ "$transferWay" == "UPLOAD" ]]; then UploadFiles "$useGitRepo" "$target" "$backupDir" "$sourceDir"
     fi
 }
-function DownloadFiles { TransferFiles "DOWNLOAD" "$@"; }
-function UploadFiles { TransferFiles "UPLOAD" "$@"; }
