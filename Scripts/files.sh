@@ -378,3 +378,37 @@ function AddCodeBlock_Bottom {
 
     AddCodeBlock "$blockIndex" "$file" "$block" "$blockName"
 }
+
+
+function TransferFiles {
+    local transferWay="$(Trim "$(UCase "$1")")"
+    local useGitRepo="$(Trim "$2")"
+    local target="$(Trim "$3")"
+    local backupDir="$(Trim "$4")"
+    local sourceDir="$(Trim "$5")"
+
+
+    backupDir="$(SwitchDirSymbols "$backupDir")"
+    sourceDir="$(SwitchDirSymbols "$sourceDir")"
+
+    [[ "$(Right 1 "$target")" == "/" ]] && target="$(Exclude_Last 1 "$target")"
+    [[ "$(Right 1 "$backupDir")" != "/" ]] && backupDir="$backupDir/"
+    [[ "$(Right 1 "$sourceDir")" != "/" ]] && sourceDir="$sourceDir/"
+
+
+    if [[ "$transferWay" == "DOWNLOAD" ]]; then DownloadFiles "$useGitRepo" "$target" "$backupDir" "$sourceDir"
+    elif [[ "$transferWay" == "UPLOAD" ]]; then UploadFiles "$useGitRepo" "$target" "$backupDir" "$sourceDir"
+    fi
+}
+function DownloadFiles {
+    local useGitRepo="$2"
+    local target="$3"
+    local backupDir="$4"
+    local sourceDir="$5"
+
+
+}
+function UploadFiles {
+
+
+}
