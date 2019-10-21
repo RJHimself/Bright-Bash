@@ -400,15 +400,5 @@ function TransferFiles {
     elif [[ "$transferWay" == "UPLOAD" ]]; then UploadFiles "$useGitRepo" "$target" "$backupDir" "$sourceDir"
     fi
 }
-function DownloadFiles {
-    local useGitRepo="$2"
-    local target="$3"
-    local backupDir="$4"
-    local sourceDir="$5"
-
-
-}
-function UploadFiles {
-
-
-}
+function DownloadFiles { TransferFiles "DOWNLOAD" "$@"; }
+function UploadFiles { TransferFiles "UPLOAD" "$@"; }
