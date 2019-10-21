@@ -162,4 +162,5 @@ function UpdatePkg_ALL {
     $(IsPkgManagerRunning "flatpak") && sudo flatpak update
 }
 
+
 function IsPkgManagerRunning { $(IsNotEmpty "$($1 --version)") && echo true || echo false; }
