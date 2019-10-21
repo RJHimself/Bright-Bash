@@ -63,7 +63,7 @@ function GetFileName_NoExtension {
 }
 function RemoveFolderSlash {
     #? SML Support
-    if $(isSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
+    if $(IsSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
 
     local folderDir="$(Trim "$1")"
 
@@ -73,7 +73,7 @@ function RemoveFolderSlash {
 
 function SwitchDirSymbols {
     #? SML Support
-    if $(isSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
+    if $(IsSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
 
 
     local tmpDir="$(Trim "$1")"
@@ -90,7 +90,7 @@ function ListDir {
     # ListDir "$HOME/Downloads/**" "D"
 
     #? SML Support
-    if $(isSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
+    if $(IsSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
 
 
     local tmpDir="$(SwitchDirSymbols "$(Trim "$1")")"

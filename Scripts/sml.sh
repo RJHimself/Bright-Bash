@@ -1,11 +1,11 @@
 # SML - String Multi Line
 
-function isSml { (( $(CountLines "$1") > 1 )) && echo true || echo false; }
+function IsSml { (( $(CountLines "$1") > 1 )) && echo true || echo false; }
 
 
 function SmlExecute  {
     local toExecute="$1"
-    local thisSml="$2"
+    local thIsSml="$2"
     local finalSml="----"
     local lineResult
 
@@ -13,7 +13,7 @@ function SmlExecute  {
     while IFS= read -r line; do
         lineResult="$($toExecute "$line" "${@: 3}")"
         finalSml="$finalSml"$'\n'"$lineResult"
-    done <<< "$thisSml"
+    done <<< "$thIsSml"
 
     finalSml="$(CutLines_First "$finalSml")"
 
@@ -229,25 +229,25 @@ function GetLine_Last {
 function CutLines_First { echo "$1" | sed '1d'; }
 function CutLines_FirstLast { echo "$1" | sed '1d; $d; s/^ *//'; }
 function CutLines_Empty {
-    local thisSml="$1"
+    local thIsSml="$1"
     local finalSml
 
     while IFS= read -r element; do
         if $(IsNotEmpty "$(Trim "$element")"); then
         $(IsEmpty $finalSml) && finalSml="$(Trim "$element")" || finalSml="$finalSml"$'\n'"$(Trim "$element")"
         fi
-    done <<< "$thisSml"
+    done <<< "$thIsSml"
 
     echo "$finalSml"
 }
 function CutLines_Clones {
-    local thisSml="$1"
+    local thIsSml="$1"
     local finalSml
 
 
     while IFS= read -r element; do
     $(IsEmpty $finalSml) && finalSml="$(Trim "$element")" || finalSml="$finalSml"$'\n'"$(SmlLacks "$(Trim "$element")" "$finalSml")"
-    done <<< "$thisSml"
+    done <<< "$thIsSml"
 
     finalSml="$(CutLines_Empty "$finalSml")"
 
