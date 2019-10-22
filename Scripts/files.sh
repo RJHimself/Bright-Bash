@@ -1,8 +1,14 @@
 function FileExists { [[ -f "$1" ]] && echo true || echo false; }
 function FolderExists { [[ -d "$1" ]] && echo true || echo false; }
+function DirectoryExists {
+    local dir="$(Trim "$1")"
+    if $(FileNotExists "$dir") && $(FolderNotExists "$dir"); then echo false; return; fi
+    echo true
+}
 
 function FileNotExists { $(FileExists "$@") && echo false || echo true; }
 function FolderNotExists { $(FolderExists "$@") && echo false || echo true; }
+function DirectoryNotExists { $(DirectoryExists "$@") && echo false || echo true; }
 
 
 function IsFile { echo $(FileExists "$@"); }

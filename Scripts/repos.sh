@@ -74,6 +74,9 @@ function GitCommitToday {
     local tmpOldPath="$(Trim "$PWD")"
 
 
+    
+
+
     cd "$dir"
     git add -A
     git commit -m "$(Today)"
