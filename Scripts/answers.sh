@@ -4,7 +4,7 @@ function IsON {
 
     [[ "$state" == "ON" ]] && echo true || echo false;
 }
-function IsNotOFF { $(IsON "$@") && echo false || echo true; }
+function IsNotOFF { $(IsOFF "$@") && echo false || echo true; }
 function IsOFF {
     local state="$(UCase "$(Trim "$1")")"
 
