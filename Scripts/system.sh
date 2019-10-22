@@ -201,6 +201,17 @@ function RunningShell {
     if $(IsNotEmpty "$ZSH_VERSION"); then echo "ZSH"; return; fi
 }
 function RunningDesktop {
+    # # EXAMPLE:
+    # case "$(RunningDesktop)" in
+    # "GNOME")
+    # ;;
+    # "KDE")
+    # ;;
+    # "XFCE")
+    # ;;
+    # esac
+
+
     local desktopsList="$(SmlTrim "$(CutLines_Empty "
     GNOME
     KDE
