@@ -65,8 +65,16 @@ function GitSync {
     if $(FolderNotExists "$fromDir"); then return; fi
 
 
-    cd "$fromDir"
     GitGetChanges "$fromDir" "$toDir"
+    GitCommitToday "$fromDir"
+}
+
+function GitCommitToday {
+    local dir="$(Trim "$1")"
+    local tmpOldPath="$(Trim "$PWD")"
+
+
+    cd "$dir"
     git add -A
     git commit -m "$(Today)"
     cd "$tmpOldPath"
