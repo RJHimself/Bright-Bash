@@ -394,12 +394,12 @@ function AddCodeBlock_Bottom {
 function TransferFiles_Git { TransferFiles "git" "$@"; }
 function TransferFiles {
     local transferType="$(Trim "$1")"
-    local target="$(SwitchDirSymbols_File "$2")"
-    local fromDir="$(SwitchDirSymbols_Folder "$3")"
-    local toDir="$(SwitchDirSymbols_Folder "$4")"
+    local fromDir="$(SwitchDirSymbols_File "$2")"
+    local toDir="$(SwitchDirSymbols_Folder "$3")"
 
 
     if [[ "$transferType" == "git" ]]; then
     elif $(IsAny "$transferType" "normal" "default"); then
+    sudo rsync -aAXv "$fromDir" "$toDir"
     fi
 }
