@@ -74,7 +74,7 @@ function GitCommitToday {
     local tmpOldPath="$(Trim "$PWD")"
 
 
-    
+    if $(DirectoryNotExists "$dir"); then return; fi
 
 
     cd "$dir"
