@@ -400,6 +400,6 @@ function TransferFiles {
 
 
     if [[ "$transferType" == "git" ]]; then
-    elif [[ "$transferType" == "git" ]]; then
+    elif $(IsAny "$transferType" "normal" "default"); then
     fi
 }
