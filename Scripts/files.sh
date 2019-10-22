@@ -70,7 +70,18 @@ function RemoveFolderSlash {
     [[ "$(Right 1 "$folderDir")" == "/" ]] && echo "${folderDir: 0:-1}" || echo "$folderDir"
 }
 
+function SwitchDirSymbols_Folder {
+    local folder="$(SwitchDirSymbols "$1")"
+    [[ "$(Right 1 "$folder")" != "/" ]] && folder="$folder/"
 
+    echo "$folder"
+}
+function SwitchDirSymbols_File {
+    local file="$(SwitchDirSymbols "$1")"
+    [[ "$(Right 1 "$file")" == "/" ]] && file="$(Exclude_Last 1 "$target")"
+
+    echo "$file"
+}
 function SwitchDirSymbols {
     #? SML Support
     if $(IsSml "$1"); then echo "$(SmlExecute "$(FuncName)" "$@")"; return; fi
@@ -380,25 +391,24 @@ function AddCodeBlock_Bottom {
 }
 
 
-function DownloadFiles { TransferFiles "$Download" "$@"; }
-function UploadFiles { TransferFiles "$Upload" "$@"; }
+function TransferFiles_Git { TransferFiles "git" "$@"; }
 function TransferFiles {
-    local transferWay="$(Trim "$(UCase "$1")")"
-    local useGitRepo="$(Trim "$2")"
-    local target="$(Trim "$3")"
-    local backupDir="$(Trim "$4")"
-    local sourceDir="$(Trim "$5")"
+    local transferType="$(Trim "$1")"
+    local target="$(Trim "$2")"
+    local fromDir="$(Trim "$3")"
+    local toDir="$(Trim "$4")"
 
 
-    backupDir="$(SwitchDirSymbols "$backupDir")"
-    sourceDir="$(SwitchDirSymbols "$sourceDir")"
+    fromDir="$(SwitchDirSymbols "$fromDir")"
+    toDir="$(SwitchDirSymbols "$toDir")"
 
     [[ "$(Right 1 "$target")" == "/" ]] && target="$(Exclude_Last 1 "$target")"
-    [[ "$(Right 1 "$backupDir")" != "/" ]] && backupDir="$backupDir/"
-    [[ "$(Right 1 "$sourceDir")" != "/" ]] && sourceDir="$sourceDir/"
+    [[ "$(Right 1 "$fromDir")" != "/" ]] && fromDir="$fromDir/"
+    [[ "$(Right 1 "$toDir")" != "/" ]] && toDir="$toDir/"
 
 
-    if [[ "$transferWay" == "$Download" ]]; then DownloadFiles "$useGitRepo" "$target" "$backupDir" "$sourceDir"
-    elif [[ "$transferWay" == "$Upload" ]]; then UploadFiles "$useGitRepo" "$target" "$backupDir" "$sourceDir"
+    if [[ "$transferWay" == "$Download" ]]; then
+
+    elif [[ "$transferWay" == "$Upload" ]]; then
     fi
 }
