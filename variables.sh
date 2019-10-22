@@ -14,3 +14,7 @@ MainDistro="$ID"
 DistroVersion="$VER"
 CodeName="$VERSION_CODENAME"
 AutoStartupPath="$HOME/.config/autostart"
+
+
+Download="DOWNLOAD"
+Upload="UPLOAD"
