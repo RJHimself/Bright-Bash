@@ -14,3 +14,6 @@ function IsOFF {
 
 function IsDownload { [[ "$(FirstUCase "$1")" == "D" ]] && echo true || echo false; }
 function IsUpload { [[ "$(FirstUCase "$1")" == "U" ]] && echo true || echo false; }
+
+function IsNotDownload { $(IsDownload "$1") && echo false || echo true; }
+function IsNotUpload { $(IsUpload "$1") && echo false || echo true; }
