@@ -391,9 +391,13 @@ function AddCodeBlock_Bottom {
 }
 
 
+function Directory { echo $(dirname "$1"); }
+
+
 function TransferFiles_Git { TransferFiles "git" "$@"; }
+function TransferFiles_Normal { TransferFiles "normal" "$@"; }
 function TransferFiles {
-    local transferType="$(Trim "$1")"
+    local transferType="$(LCase "$(Trim "$1")")"
     local fromDir="$(SwitchDirSymbols_File "$2")"
     local toDir="$(SwitchDirSymbols_Folder "$3")"
 
@@ -401,6 +405,6 @@ function TransferFiles {
     if [[ "$transferType" == "git" ]]; then
     GitSync "$fromDir" "$toDir"
     elif $(IsAny "$transferType" "normal" "default"); then
-    sudo rsync -aAXv "$fromDir" "$toDir"
+    sudo mkdir -p -m "$sourcePermissions" "$tmpBackupDir" && sudo rsync -aAXv "$fromDir" "$toDir"
     fi
 }
