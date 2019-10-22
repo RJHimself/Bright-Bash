@@ -12,9 +12,5 @@ function IsOFF {
 }
 
 
-function IsDownload {
-    local answer="$(UCase "$(Trim "$1")")"
-    answer="$(Left 1 "$answer")"
-
-    
-}
+function IsDownload { [[ "$(FirstUCase "$1")" == "D" ]] && echo true || echo false; }
+function IsUpload { [[ "$(FirstUCase "$1")" == "U" ]] && echo true || echo false; }
