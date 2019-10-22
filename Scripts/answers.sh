@@ -10,3 +10,11 @@ function IsOFF {
 
     [[ "$state" == "OFF" ]] && echo true || echo false;
 }
+
+
+function IsDownload {
+    local answer="$(UCase "$(Trim "$1")")"
+    answer="$(Left 1 "$answer")"
+
+    
+}

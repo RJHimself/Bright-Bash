@@ -97,6 +97,15 @@ function LCase { echo "$(echo "$1" | tr '[:upper:]' '[:lower:]')"; }
 function UCase { echo "$(echo "$1" | tr '[:lower:]' '[:upper:]')"; }
 
 
+function FirstLCase { echo "$(LCase "$(FirstUCase "$1")")"; }
+function FirstUCase {
+    local string="$(UCase "$(Trim "$1")")"
+    string="$(Left 1 "$string")"
+
+    echo "$string"
+}
+
+
 function Lacks { $(Contains "$@") && echo false || echo true; }
 function Contains {
     local strtoFind="$1"
