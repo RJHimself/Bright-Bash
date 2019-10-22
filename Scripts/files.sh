@@ -401,10 +401,15 @@ function TransferFiles {
     local fromDir="$(SwitchDirSymbols_File "$2")"
     local toDir="$(SwitchDirSymbols_Folder "$3")"
 
+    local fromDirPermissions="$(GetPermissions "$(Directory "$fromDir")")"
+    local target="$toDir""$(GetFileName "$fromDir")"
 
+
+    sudo mkdir -p -m "$fromDirPermissions" "$toDir"
     if [[ "$transferType" == "git" ]]; then
     GitSync "$fromDir" "$toDir"
     elif $(IsAny "$transferType" "normal" "default"); then
-    sudo mkdir -p -m "$sourcePermissions" "$tmpBackupDir" && sudo rsync -aAXv "$fromDir" "$toDir"
+    sudo rsync -aAXv "$fromDir" "$toDir"
     fi
+    sudo chmod "$fromDirPermissions" "$target"
 }
