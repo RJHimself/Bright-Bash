@@ -394,21 +394,12 @@ function AddCodeBlock_Bottom {
 function TransferFiles_Git { TransferFiles "git" "$@"; }
 function TransferFiles {
     local transferType="$(Trim "$1")"
-    local target="$(Trim "$2")"
-    local fromDir="$(Trim "$3")"
-    local toDir="$(Trim "$4")"
+    local target="$(SwitchDirSymbols_File "$2")"
+    local fromDir="$(SwitchDirSymbols_Folder "$3")"
+    local toDir="$(SwitchDirSymbols_Folder "$4")"
 
 
-    fromDir="$(SwitchDirSymbols "$fromDir")"
-    toDir="$(SwitchDirSymbols "$toDir")"
-
-    [[ "$(Right 1 "$target")" == "/" ]] && target="$(Exclude_Last 1 "$target")"
-    [[ "$(Right 1 "$fromDir")" != "/" ]] && fromDir="$fromDir/"
-    [[ "$(Right 1 "$toDir")" != "/" ]] && toDir="$toDir/"
-
-
-    if [[ "$transferWay" == "$Download" ]]; then
-
-    elif [[ "$transferWay" == "$Upload" ]]; then
+    if [[ "$transferType" == "git" ]]; then
+    elif [[ "$transferType" == "git" ]]; then
     fi
 }
