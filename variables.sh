@@ -6,9 +6,6 @@ PathName=".path"
 PathLocation="$PathDir/$PathName"
 
 
-rjSetup="$HOME/RJ-Setup"
-
-
 Distro="$OS"
 MainDistro="$ID"
 DistroVersion="$VER"
