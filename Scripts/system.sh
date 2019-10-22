@@ -59,7 +59,8 @@ function DconfSettings {
 
 
     local loadingWay="$(echo "$(UCase "$1")")"
-    local settings="$2"
+    local settings="$(Trim "$2")"
+    local toDir="$(SwitchDirSymbols_Folder "$3")"
 
 
     loadingWay="${loadingWay: 0:1}"
@@ -73,11 +74,8 @@ function DconfSettings {
         name="${name: 1:-1}"
 
 
-        mkdir -p -m 777 "$rjSetup/Backup/Dconf/"
-
-
-        if [[ "$loadingWay" == "D" ]]; then dconf dump "$location" > "$rjSetup/Backup/Dconf/$name.txt"
-        elif [[ "$loadingWay" == "U" ]]; then dconf load "$location" < "$rjSetup/Backup/Dconf/$name.txt"
+        if [[ "$loadingWay" == "D" ]]; then dconf dump "$location" > "$toDir""$name.txt"
+        elif [[ "$loadingWay" == "U" ]]; then dconf load "$location" < "$toDir""$name.txt"
         else echo "dconfSettings can NOT Understand what ya mean by this: $1"
         fi
     done <<< "$settings"
