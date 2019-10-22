@@ -399,6 +399,7 @@ function TransferFiles {
 
 
     if [[ "$transferType" == "git" ]]; then
+    GitSync "$fromDir" "$toDir"
     elif $(IsAny "$transferType" "normal" "default"); then
     sudo rsync -aAXv "$fromDir" "$toDir"
     fi
