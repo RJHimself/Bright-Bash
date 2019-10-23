@@ -1,5 +1,5 @@
 function FunctionExists { [[ "$(type -t $1)" == "function" ]] && echo true || echo false; }
-function FunctionNotExists { $(FunctionExists "$1") && echo false || echo true; }
+function FunctionNotExists [[ ! "$(type -t $1)" == "function" ]] && echo true || echo false; }
 
 
 function VariableExists { IsNotEmpty "$1"; }
