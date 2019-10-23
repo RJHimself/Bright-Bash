@@ -1,4 +1,3 @@
-BBLibWasSourced=true
 nl=$'\n'
 
 
