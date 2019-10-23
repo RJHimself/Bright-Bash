@@ -1,3 +1,4 @@
+BBLibWasSourced=true
 nl=$'\n'
 
 
