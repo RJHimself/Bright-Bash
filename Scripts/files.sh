@@ -37,6 +37,12 @@ function CreateFileLink {
 function ReadFile { cat "$1"; }
 function CreateFile { sudo touch "$1"; }
 function DeleteFile { sudo rm -rf "$1"; }
+function WriteFile {
+    local file="$(Trim "$1")"
+    local content="$2"
+
+    echo "$content" > "$file"
+}
 function UpdateFile {
     local file="$1"
     local content="$2"

@@ -59,23 +59,51 @@ function DconfSettings {
 
 
     local loadingWay="$1"
-    local settings="$(Trim "$2")"
+    local settings="$(SmlTrim "$2")"
     local toDir="$(SwitchDirSymbols_Folder "$3")"
 
 
     while IFS= read -r location; do
-        [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
-        [[ "$(Right 1 "$location")" != "/" ]] && location="$location/"
-
-        name=$(echo "$location" | tr "/" ".")
-        name="${name: 1:-1}"
-
-
-        if $(IsDownload "$loadingWay"); then dconf dump "$location" > "$toDir""$name.txt"
-        elif $(IsUpload "$loadingWay"); then dconf load "$location" < "$toDir""$name.txt"
-        else echo "dconfSettings can NOT Understand what ya mean by this: $1"
+        if [[ "$(Right 1 "$location")" == "/" ]];
+        then DconfSettings_Load "$loadingWay" "$location" "$toDir"
+        else DconfSettings_Only "$loadingWay" "$location" "$toDir"
         fi
     done <<< "$settings"
+}
+function DconfSettings_Load {
+    local loadingWay="$1"
+    local location="$(Trim "$2")"
+    local toDir="$(Trim "$3")"
+
+    local name="$(echo "$location" | tr "/" ".")"
+
+
+    [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
+    [[ "$(Right 1 "$location")" != "/" ]] && location="$location/"
+    name="${name: 1:-1}"
+
+
+    if $(IsDownload "$loadingWay"); then dconf dump "$location" > "$toDir""$name.txt"
+    elif $(IsUpload "$loadingWay"); then dconf load "$location" < "$toDir""$name.txt"
+    else echo "dconfSettings can NOT Understand what ya mean by this: $loadingWay"
+    fi
+}
+function DconfSettings_Only {
+    local loadingWay="$1"
+    local location="$(Trim "$2")"
+    local toDir="$(Trim "$3")"
+
+    local name="$(echo "$location" | tr "/" ".")"
+
+
+    [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
+    name="${name: 1:-1}"
+
+
+    if $(IsDownload "$loadingWay"); then WriteFile "$toDir""$name.txt" "$(dconf read "$location")"
+    elif $(IsUpload "$loadingWay"); then dconf write "$location" "$(ReadFile "$toDir""$name.txt")"
+    else echo "dconfSettings can NOT Understand what ya mean by this: $loadingWay"
+    fi
 }
 
 
