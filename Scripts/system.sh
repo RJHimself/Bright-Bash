@@ -58,12 +58,9 @@ function DconfSettings {
     # DconfSettings D "/org/gnome/shell/extensions/"
 
 
-    local loadingWay="$(echo "$(UCase "$1")")"
+    local loadingWay="$1"
     local settings="$(Trim "$2")"
     local toDir="$(SwitchDirSymbols_Folder "$3")"
-
-
-    loadingWay="${loadingWay: 0:1}"
 
 
     while IFS= read -r location; do
@@ -74,8 +71,8 @@ function DconfSettings {
         name="${name: 1:-1}"
 
 
-        if [[ "$loadingWay" == "D" ]]; then dconf dump "$location" > "$toDir""$name.txt"
-        elif [[ "$loadingWay" == "U" ]]; then dconf load "$location" < "$toDir""$name.txt"
+        if $(IsDownload "$loadingWay"); then dconf dump "$location" > "$toDir""$name.txt"
+        elif $(IsUpload "$loadingWay"); then dconf load "$location" < "$toDir""$name.txt"
         else echo "dconfSettings can NOT Understand what ya mean by this: $1"
         fi
     done <<< "$settings"
