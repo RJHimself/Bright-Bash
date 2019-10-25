@@ -75,12 +75,13 @@ function DconfSettings_Load {
     local location="$(Trim "$2")"
     local toDir="$(Trim "$3")"
 
-    local name="$(echo "$location" | tr "/" ".")"
+    local name
 
 
     [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
     [[ "$(Right 1 "$location")" != "/" ]] && location="$location/"
-    name="${name: 1:-1}"
+    name="$(ReplaceChar "/" "." "$location")"
+    name="$(Exclude_FirstLast 1 "$name")"
 
 
     if $(IsDownload "$loadingWay"); then dconf dump "$location" > "$toDir""$name.txt"
@@ -93,11 +94,12 @@ function DconfSettings_Only {
     local location="$(Trim "$2")"
     local toDir="$(Trim "$3")"
 
-    local name="$(echo "$location" | tr "/" ".")"
+    local name
 
 
     [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
-    name="${name: 1:-1}"
+    name="$(ReplaceChar "/" "." "$location")"
+    name="$(Exclude_FirstLast 1 "$name")"
 
 
     if $(IsDownload "$loadingWay"); then WriteFile "$toDir""$name.txt" "$(dconf read "$location")"

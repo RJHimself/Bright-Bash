@@ -50,6 +50,19 @@ function Exclude_Last {
 
     echo "$finalString"
 }
+function Exclude_FirstLast {
+    local amount="$(Trim "$1")"
+    local string="$(Trim "$2")"
+
+    local finalString="$string"
+
+
+    finalString="$(Exclude_First "$amount" "$finalString")"
+    finalString="$(Exclude_Last "$amount" "$finalString")"
+
+
+    echo "$finalString"
+}
 
 
 function MidToStart {
@@ -269,4 +282,15 @@ function Replace {
 
 
     $(Contains "$strToFind" "$strEnglobber") && echo "$finalResult" || echo "$strEnglobber"
+}
+
+function ReplaceChar {
+    local strToFind="$1"
+    local strReplacer="$2"
+    local strEnglobber="$3"
+
+    local finalResult="$(echo "$strEnglobber" | tr "$strToFind" "$strReplacer")"
+
+
+    echo "$finalResult"
 }
