@@ -75,10 +75,7 @@ function DconfSettings_Load {
     local location="$(SwitchDirSymbols_Folder "$2")"
     local toDir="$(Trim "$3")"
 
-    local name
-
-
-    name="$(ReplaceChar "/" "." "$location")"
+    local name="$(ReplaceChar "/" "." "$location")"
     name="$(Exclude_FirstLast 1 "$name")"
 
 
@@ -92,10 +89,7 @@ function DconfSettings_Only {
     local location="$(SwitchDirSymbols_File "$2")"
     local toDir="$(Trim "$3")"
 
-    local name
-
-
-    name="$(ReplaceChar "/" "." "$location")"
+    local name="$(ReplaceChar "/" "." "$location")"
     name="$(Exclude_First 1 "$name")"
 
 
