@@ -72,14 +72,12 @@ function DconfSettings {
 }
 function DconfSettings_Load {
     local loadingWay="$1"
-    local location="$(Trim "$2")"
+    local location="$(SwitchDirSymbols_Folder "$2")"
     local toDir="$(Trim "$3")"
 
     local name
 
 
-    [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
-    [[ "$(Right 1 "$location")" != "/" ]] && location="$location/"
     name="$(ReplaceChar "/" "." "$location")"
     name="$(Exclude_FirstLast 1 "$name")"
 
@@ -91,15 +89,14 @@ function DconfSettings_Load {
 }
 function DconfSettings_Only {
     local loadingWay="$1"
-    local location="$(Trim "$2")"
+    local location="$(SwitchDirSymbols_File "$2")"
     local toDir="$(Trim "$3")"
 
     local name
 
 
-    [[ "$(Left 1 "$location")" != "/" ]] && location="/$location"
     name="$(ReplaceChar "/" "." "$location")"
-    name="$(Exclude_FirstLast 1 "$name")"
+    name="$(Exclude_First 1 "$name")"
 
 
     if $(IsDownload "$loadingWay"); then WriteFile "$toDir""$name.txt" "$(dconf read "$location")"
