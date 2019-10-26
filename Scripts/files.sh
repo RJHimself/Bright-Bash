@@ -413,6 +413,10 @@ function TransferFiles {
     local fromDir="$(SwitchDirSymbols_File "$2")"
     local toDir="$(SwitchDirSymbols_Folder "$3")"
 
+
+    if $(DirectoryNotExists "$fromDir"); then return; fi
+
+
     local fromDirPermissions="$(GetPermissions "$(Directory "$fromDir")")"
     local target="$toDir""$(GetFileName "$fromDir")"
 
