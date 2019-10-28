@@ -79,6 +79,9 @@ function DconfSettings_Load {
     name="$(Exclude_FirstLast 1 "$name")"
 
 
+    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
+
+
     if $(IsDownload "$loadingWay"); then dconf dump "$location" > "$toDir""$name.txt"
     elif $(IsUpload "$loadingWay"); then dconf load "$location" < "$toDir""$name.txt"
     else echo "dconfSettings can NOT Understand what ya mean by this: $loadingWay"
@@ -91,6 +94,9 @@ function DconfSettings_Only {
 
     local name="$(ReplaceChar "/" "." "$location")"
     name="$(Exclude_First 1 "$name")"
+
+
+    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
 
 
     if $(IsDownload "$loadingWay"); then WriteFile "$toDir""$name.txt" "$(dconf read "$location")"
