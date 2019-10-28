@@ -83,16 +83,16 @@ function RemoveFolderSlash {
 }
 
 function SwitchDirSymbols_Folder {
-    local folder="$(SwitchDirSymbols "$1")"
-    [[ "$(Right 1 "$folder")" != "/" ]] && folder="$folder/"
+    local thisFolder="$(SwitchDirSymbols "$1")"
+    [[ "$(Right 1 "$thisFolder")" != "/" ]] && thisFolder="$thisFolder/"
 
-    echo "$folder"
+    echo "$thisFolder"
 }
 function SwitchDirSymbols_File {
-    local file="$(SwitchDirSymbols "$1")"
-    [[ "$(Right 1 "$file")" == "/" ]] && file="$(Exclude_Last 1 "$target")"
+    local thisFile="$(SwitchDirSymbols "$1")"
+    [[ "$(Right 1 "$thisFile")" == "/" ]] && thisFile="$(Exclude_Last 1 "$thisFile")"
 
-    echo "$file"
+    echo "$thisFile"
 }
 function SwitchDirSymbols {
     #? SML Support
