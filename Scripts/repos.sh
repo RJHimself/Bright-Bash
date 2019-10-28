@@ -79,8 +79,8 @@ function GitCommitToday {
 
 
     cd "$dir"
-    git add -A
-    git commit -m "$(Today)"
+    sudo git add -A
+    sudo git commit -m "$(Today)"
     cd "$tmpOldPath"
 }
 
