@@ -421,7 +421,7 @@ function TransferFiles {
     local target="$toDir""$(GetFileName "$fromDir")"
 
 
-    sudo mkdir -p -m "$fromDirPermissions" "$toDir"
+    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
     if [[ "$transferType" == "git" ]]; then
     GitSync "$fromDir" "$toDir"
     elif $(IsAny "$transferType" "normal" "default"); then

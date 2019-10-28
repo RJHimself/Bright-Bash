@@ -48,6 +48,7 @@ function GitGetChanges {
 
 
     if $(FolderNotExists "$fromDir"); then return; fi
+    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
 
 
     cd "$fromDir"
