@@ -149,6 +149,7 @@ function LacksAny {
 
 function IsWord { [[ "$1" == "$2" ]] && echo true || echo false; }
 function IsNotWord { $(IsWord "$@") && echo false || echo true; }
+
 function IsAny {
     local strEnglobber="$1"
 
