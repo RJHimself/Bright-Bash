@@ -184,10 +184,9 @@ function AutoStartup {
 
     # Quoting Every Variable with Spaces or Multi Lines
     for element in $@; do
-        if $(Contains " " "$element") || $(IsSml "$element"); then
-        varGroup="$varGroup "'"'"$element"'"';
-        else
-        varGroup="$varGroup ""$element";
+        if $(Contains " " "$element") || $(IsSml "$element");
+        then varGroup="$varGroup "'"'"$element"'"';
+        else varGroup="$varGroup ""$element";
         fi
     done
 
