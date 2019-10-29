@@ -176,19 +176,21 @@ function Reboot {
     sudo systemctl reboot
 }
 function AutoStartup {
-    local file="$1"
-    local fileName
+    local fileName="$(Trim "$1")"
+    local file="$(Trim "$2")"
+
     local tmpAutoStartup="$(TempFile)"
-    local varGroup="$(QuoteVariables "$1")"
+    local varGroup
 
 
-    $(VariableExists "$2") && fileName="$(Trim "$2")" || fileName="$(GetFileName_NoExtension "$file")"
+    $(IsEmpty "$fileName") && fileName="$(GetFileName_NoExtension "$file")"
     fileName="$(AddToEnd_IfNotContains ".desktop" "$fileName")"
+    $(VariableExists "$3") && varGroup=" ""$(QuoteVariables "${@: 3}")"
 
 
     local fileContent="$(SmlTrim "[Desktop Entry]
     Version=1.0
-    Exec=sh -c 'bash $varGroup'
+    Exec=sh -c 'bash \"$file\"$varGroup'
     Icon=
     Name=$fileName
     GenericName=$fileName
@@ -209,7 +211,7 @@ function AutoStartup {
     # Make it Executable
     sudo chmod +x "$AutoStartupPath/$fileName"
     # Remove All User Restrictions to this File
-    sudo chmod -R 775 "$AutoStartupPath/$fileName"
+    sudo chmod -R 777 "$AutoStartupPath/$fileName"
 }
 
 
