@@ -179,7 +179,7 @@ function AutoStartup {
     local file="$1"
     local fileName
     local tmpAutoStartup="$(TempFile)"
-    local varGroup="$(QuoteVariables "$@")"
+    local varGroup="$(QuoteVariables "$1")"
 
 
     $(VariableExists "$2") && fileName="$(Trim "$2")" || fileName="$(GetFileName_NoExtension "$file")"
