@@ -177,9 +177,12 @@ function Reboot {
 }
 function AutoStartup {
     local file="$1"
-    local fileName="$(GetFileName_NoExtension "$file")"
+    local fileName
     local tmpAutoStartup="$(TempFile)"
     local varGroup="$(QuoteVariables "$@")"
+
+
+    $(VariableExists "$2") && fileName="$(Trim "$2")" || fileName="$(GetFileName_NoExtension "$file")"
 
 
     local fileContent="$(SmlTrim "[Desktop Entry]
