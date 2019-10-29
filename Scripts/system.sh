@@ -182,8 +182,14 @@ function AutoStartup {
     local varGroup
 
 
-    # Quoting Every Variable
-    for element in $@; do varGroup="$varGroup "'"'"$element"'"'; done
+    # Quoting Every Variable with Spaces or Multi Lines
+    for element in $@; do
+        if $(Contains " " "$element") || $(IsSml "$element"); then
+        varGroup="$varGroup "'"'"$element"'"';
+        else
+        varGroup="$varGroup ""$element";
+        fi
+    done
 
 
     local fileContent="$(SmlTrim "[Desktop Entry]
