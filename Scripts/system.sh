@@ -194,6 +194,9 @@ function AutoStartup {
     Categories=Application;Network;")"
 
 
+    $(FolderNotExists) && sudo mkdir -p -m 777 "$AutoStartupPath"
+
+
     echo "$fileContent" > "$tmpAutoStartup"
     mv "$tmpAutoStartup" "$AutoStartupPath/$fileName.desktop"
 
