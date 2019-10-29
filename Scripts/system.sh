@@ -183,6 +183,7 @@ function AutoStartup {
 
 
     $(VariableExists "$2") && fileName="$(Trim "$2")" || fileName="$(GetFileName_NoExtension "$file")"
+    fileName="$(AddToEnd_IfNotContains ".desktop" "$fileName")"
 
 
     local fileContent="$(SmlTrim "[Desktop Entry]
@@ -202,13 +203,13 @@ function AutoStartup {
 
 
     echo "$fileContent" > "$tmpAutoStartup"
-    mv "$tmpAutoStartup" "$AutoStartupPath/$fileName.desktop"
+    mv "$tmpAutoStartup" "$AutoStartupPath/$fileName"
 
 
     # Make it Executable
-    sudo chmod +x "$AutoStartupPath/$fileName.desktop"
+    sudo chmod +x "$AutoStartupPath/$fileName"
     # Remove All User Restrictions to this File
-    sudo chmod -R 775 "$AutoStartupPath/$fileName.desktop"
+    sudo chmod -R 775 "$AutoStartupPath/$fileName"
 }
 
 

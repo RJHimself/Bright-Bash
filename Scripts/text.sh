@@ -32,6 +32,16 @@ function Mid {
 }
 
 
+function AddToEnd_IfNotContains {
+    local strToFind="$1"
+    local strEnglobber="$2"
+
+    [[ $(Right $(Length "$strToFind") "$strEnglobber") != "$strToFind" ]] && strEnglobber="$strEnglobber""$strToFind"
+
+    echo "$strEnglobber"
+}
+
+
 function Exclude_First {
     local amount="$(Trim "$1")"
     local string="$(Trim "$2")"
