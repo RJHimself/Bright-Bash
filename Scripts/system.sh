@@ -205,13 +205,13 @@ function AutoStartup {
 
 
     echo "$fileContent" > "$tmpAutoStartup"
-    mv "$tmpAutoStartup" "$AutoStartupPath/$fileName"
+    sudo mv "$tmpAutoStartup" "$AutoStartupPath/$fileName"
 
 
     # Make it Executable
     sudo chmod +x "$AutoStartupPath/$fileName"
     # Remove All User Restrictions to this File
-    sudo chmod -R 777 "$AutoStartupPath/$fileName"
+    sudo chmod 777 "$AutoStartupPath/$fileName"
 }
 
 
