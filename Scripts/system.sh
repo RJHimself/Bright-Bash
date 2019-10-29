@@ -179,16 +179,7 @@ function AutoStartup {
     local file="$1"
     local fileName="$(GetFileName_NoExtension "$file")"
     local tmpAutoStartup="$(TempFile)"
-    local varGroup
-
-
-    # Quoting Every Variable with Spaces or Multi Lines
-    for element in $@; do
-        if $(Contains " " "$element") || $(IsSml "$element");
-        then varGroup="$varGroup "'"'"$element"'"';
-        else varGroup="$varGroup ""$element";
-        fi
-    done
+    local varGroup="$(QuoteVariables "$@")"
 
 
     local fileContent="$(SmlTrim "[Desktop Entry]
