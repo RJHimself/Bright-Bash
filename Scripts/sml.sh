@@ -27,6 +27,7 @@ function SmlRTrim  { echo "$(SmlExecute "RTrim" "$1")"; }
 function SmlLTrim  { echo "$(SmlExecute "LTrim" "$1")"; }
 
 
+function SmlReverse  { echo "$(SmlExecute "Reverse" "$1")"; }
 function ReverseLines { echo "$1" | awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }'; }
 
 

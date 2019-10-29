@@ -259,6 +259,28 @@ function IndexOfOccur {
 }
 
 
+function ListBeforeIndexesOf {
+    local strToFind="$1"
+    local strEnglober="$2"
+    local indexes="$(IndexOfOccurrences "$strToFind" "$strEnglober")"
+    local list
+
+    while IFS= read -r index; do
+    list="$list"$'\n'"$(Left $index "$strEnglober")"
+    done <<< "$indexes"
+
+    list="$(CutLines_Empty "$list")"
+    echo "$list"
+}
+function ListAfterIndexesOf {
+    local strToFind="$1"
+    local strEnglober="$(Reverse "$2")"
+    local list="$(SmlReverse "$(ListBeforeIndexesOf "$strToFind" "$strEnglober")")"
+
+    echo "$list"
+}
+
+
 function Replace {
     local strToFind="$1"
     local strReplacer="$2"

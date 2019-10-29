@@ -194,7 +194,7 @@ function AutoStartup {
     Categories=Application;Network;")"
 
 
-    $(FolderNotExists) && sudo mkdir -p -m 777 "$AutoStartupPath"
+    CreateFolder_IfNotExists "$AutoStartupPath"
 
 
     echo "$fileContent" > "$tmpAutoStartup"

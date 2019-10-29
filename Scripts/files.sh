@@ -34,6 +34,35 @@ function CreateFileLink {
 }
 
 
+function FolderHierarchy {
+    if $(VariableNotExists "$1"); then return; fi
+
+
+    local thisFolder="$(SwitchDirSymbols_Folder "$1")"
+    local hierarchy="$(ListBeforeIndexesOf "/" "$thisFolder")"
+
+
+    echo "$hierarchy"
+}
+
+
+function CreateFolder {
+    local folder="$(Trim "$1")"
+    local folderHierarchy="$(FolderHierarchy "$folder")"
+    local permissions="777"
+
+    while IFS= read -r tmpFolder; do
+    if $(FolderNotExists "$tmpFolder"); then
+
+        sudo mkdir -p -m $permissions "$folder"
+        sudo chmod -R $permissions "$tmpFolder"
+        return
+    fi
+    done <<< "$folderHierarchy"
+}
+function CreateFolder_IfNotExists { CreateFolder "$@"; }
+
+
 function ReadFile { cat "$1"; }
 function CreateFile { sudo touch "$1"; }
 function DeleteFile { sudo rm -rf "$1"; }
