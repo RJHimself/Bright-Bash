@@ -179,11 +179,15 @@ function AutoStartup {
     local file="$1"
     local fileName="$(GetFileName_NoExtension "$file")"
     local tmpAutoStartup="$(TempFile)"
-    local varGroup="$@"
+    local varGroup
+
+
+    for element in $@; do varGroup="$varGroup "'"'"$element"'"'; done
+
 
     local fileContent="$(SmlTrim "[Desktop Entry]
     Version=1.0
-    Exec=sh -c 'bash \"$varGroup\"'
+    Exec=sh -c 'bash $varGroup'
     Icon=
     Name=$fileName
     GenericName=$fileName
