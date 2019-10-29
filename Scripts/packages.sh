@@ -106,7 +106,7 @@ function AddPkg_GnomeExtensions {
 
 
     gndExtensions="$(ListDir "$gndExtLocation" "F")"
-    gndExtensions="$(CutLines_Empty "$gndExtensions")"
+    gndExtensions="$(SmlCutLines_Empty "$gndExtensions")"
     gndExtensions="$(SmlTrim "$gndExtensions")"
 
 

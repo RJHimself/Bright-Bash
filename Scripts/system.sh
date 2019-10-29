@@ -19,17 +19,17 @@ function AddToPath {
 
 
     NewPath="$NewPath"$'\n'"$(ifPathFileExists)"
-    NewPath="$(CutLines_Empty "$NewPath")"
+    NewPath="$(SmlCutLines_Empty "$NewPath")"
     NewPath="$(SmlTrim "$NewPath")"
 
     NewPath="$(SwitchDirSymbols "$NewPath")"
     NewPath="$(ListDir "$NewPath" "D")"
-    NewPath="$(CutLines_Empty "$NewPath")"
+    NewPath="$(SmlCutLines_Empty "$NewPath")"
     NewPath="$(SmlTrim "$NewPath")"
 
     NewPath="$(RemoveFolderSlash "$NewPath")"
     NewPath="$(SmlMerge "$NewPath" "$SuOldPath" "$SmlOldPath")"
-    NewPath="$(CutLines_Empty "$NewPath")"
+    NewPath="$(SmlCutLines_Empty "$NewPath")"
     NewPath="$(SmlTrim "$NewPath")"
     NewPath="$(SmlJoin ":" "$NewPath")"
 
@@ -244,7 +244,7 @@ function RunningDesktop {
     # esac
 
 
-    local desktopsList="$(SmlTrim "$(CutLines_Empty "
+    local desktopsList="$(SmlTrim "$(SmlCutLines_Empty "
     GNOME
     KDE
     XFCE
@@ -334,7 +334,7 @@ function GenerateComputerSpecsVars {
 
 
 function InjectLib {
-    local allShellFiles="$(CutLines_Empty "$(SmlTrim "$1")")"
+    local allShellFiles="$(SmlCutLines_Empty "$(SmlTrim "$1")")"
 
 
     function ShellLacksLib {

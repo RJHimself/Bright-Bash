@@ -183,7 +183,7 @@ function ListDir {
     else list="$(find "$finalPath" $(Trim "$finalDepth") $(Trim "$finalType"))"
     fi
 
-    list="$(CutLines_Empty "$list")"
+    list="$(SmlCutLines_Empty "$list")"
     list="$(SmlTrim "$list")"
 
 
@@ -403,8 +403,8 @@ function DeleteCodeBlock {
 
     blockIndexes="$(GetCodeBlockIndexesOccurr "$blockNumber" "$file")"
 
-    blockStart="$(GetLine_First "$blockIndexes")"
-    blockEnd="$(GetLine_Last "$blockIndexes")"
+    blockStart="$(SmlGetLine_First "$blockIndexes")"
+    blockEnd="$(SmlGetLine_Last "$blockIndexes")"
 
 
     DeleteLinesFrom "$blockStart" "$blockEnd" "$file"

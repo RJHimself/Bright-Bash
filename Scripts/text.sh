@@ -109,7 +109,7 @@ function Capitalize {
     smlNewStr="$(SmlTrim "$smlNewStr")"
 
     for (( i = 0; i < $(CountLines "$smlOldStr"); i++ )); do
-    oldStr="$(Replace "$(GetLine $i "$smlOldStr")" "$(GetLine $i "$smlNewStr")" "$oldStr")"
+    oldStr="$(Replace "$(SmlGetLine $i "$smlOldStr")" "$(SmlGetLine $i "$smlNewStr")" "$oldStr")"
     done
 
 
@@ -253,7 +253,7 @@ function IndexOfOccurrences {
     occurences="$occurences"$'\n'"$lastIndex"
     done
 
-    occurences="$(CutLines_Empty "$occurences")"
+    occurences="$(SmlCutLines_Empty "$occurences")"
     occurences="$(SmlTrim "$occurences")"
 
 
@@ -265,7 +265,7 @@ function IndexOfOccur {
     local strEnglober="$3"
 
 
-    echo $(GetLine $occurrTime "$(IndexOfOccurrences "$strToFind" "$strEnglober")")
+    echo $(SmlGetLine $occurrTime "$(IndexOfOccurrences "$strToFind" "$strEnglober")")
 }
 
 
@@ -279,7 +279,7 @@ function ListBeforeIndexesOf {
     list="$list"$'\n'"$(Left $index "$strEnglober")"
     done <<< "$indexes"
 
-    list="$(CutLines_Empty "$list")"
+    list="$(SmlCutLines_Empty "$list")"
     echo "$list"
 }
 function ListAfterIndexesOf {

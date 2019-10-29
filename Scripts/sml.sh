@@ -15,7 +15,7 @@ function SmlExecute  {
         finalSml="$finalSml"$'\n'"$lineResult"
     done <<< "$thIsSml"
 
-    finalSml="$(CutLines_First "$finalSml")"
+    finalSml="$(SmlCutLines_First "$finalSml")"
 
 
     echo "$finalSml"
@@ -146,7 +146,7 @@ function Bottom {
 }
 
 
-function GetLine {
+function SmlGetLine {
     local intLine="$1"
     local fullString="$2"
     local tmpIntLine=0
@@ -157,7 +157,7 @@ function GetLine {
     let "tmpIntLine++"
     done <<< "$fullString"
 }
-function AddLines {
+function SmlAddLines {
     local lineToAdd="$(Trim "$1")"
     local strNewLine="$2"
     local fullSml="$3"
@@ -178,7 +178,7 @@ function AddLines {
 
     echo "$finalSml"
 }
-function CutLines {
+function SmlCutLines {
     local lineToCut="$(Trim "$1")"
     local fullSml="$2"
     local finalSml
@@ -196,7 +196,7 @@ function CutLines {
 
     echo "$finalSml"
 }
-function ReplaceLine {
+function SmlReplaceLine {
     local lineToReplace="$(Trim "$1")"
     local strToReplace="$2"
     local fullSml="$3"
@@ -218,18 +218,18 @@ function ReplaceLine {
     echo "$finalSml"
 }
 
-function GetLine_First { GetLine 0 "$@"; }
-function GetLine_Last {
+function SmlGetLine_First { SmlGetLine 0 "$@"; }
+function SmlGetLine_Last {
     local fullString="$1"
 
     local linesQty="$(CountLines "$fullString")"
-    local lastLine="$(GetLine $(($linesQty - 1)) "$fullString")"
+    local lastLine="$(SmlGetLine $(($linesQty - 1)) "$fullString")"
 
     echo "$lastLine";
 }
-function CutLines_First { echo "$1" | sed '1d'; }
-function CutLines_FirstLast { echo "$1" | sed '1d; $d; s/^ *//'; }
-function CutLines_Empty {
+function SmlCutLines_First { echo "$1" | sed '1d'; }
+function SmlCutLines_FirstLast { echo "$1" | sed '1d; $d; s/^ *//'; }
+function SmlCutLines_Empty {
     local thIsSml="$1"
     local finalSml
 
@@ -241,7 +241,7 @@ function CutLines_Empty {
 
     echo "$finalSml"
 }
-function CutLines_Clones {
+function SmlCutLines_Clones {
     local thIsSml="$1"
     local finalSml
 
@@ -250,7 +250,7 @@ function CutLines_Clones {
     $(IsEmpty $finalSml) && finalSml="$(Trim "$element")" || finalSml="$finalSml"$'\n'"$(SmlLacks "$(Trim "$element")" "$finalSml")"
     done <<< "$thIsSml"
 
-    finalSml="$(CutLines_Empty "$finalSml")"
+    finalSml="$(SmlCutLines_Empty "$finalSml")"
 
 
     echo "$finalSml"
@@ -396,7 +396,7 @@ function IndexOfAllBlocksAt {
         let "currentLineIndex++"
     done <<< "$smlEnglobber"
 
-    allBlocks="$(SmlTrim "$(CutLines_Empty "$allBlocks")")"
+    allBlocks="$(SmlTrim "$(SmlCutLines_Empty "$allBlocks")")"
 
     $(IsNotEmpty "$allBlocks") && echo "$allBlocks" || echo -1
 }
@@ -503,7 +503,7 @@ function GetBlockIndexesOccurr {
     local content="$4"
 
     local allBlockStartIndex="$(IndexOfAllBlocks "$blockStart" "$content")"
-    local startAt="$(GetLine $occurrence "$allBlockStartIndex")"
+    local startAt="$(SmlGetLine $occurrence "$allBlockStartIndex")"
 
     local blockIndexes="$(GetBlockIndexesAt "$startAt" "$blockStart" "$blockEnd" "$content")"
 
