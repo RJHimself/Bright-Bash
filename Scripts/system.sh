@@ -182,6 +182,7 @@ function AutoStartup {
     local varGroup
 
 
+    # Quoting Every Variable
     for element in $@; do varGroup="$varGroup "'"'"$element"'"'; done
 
 
