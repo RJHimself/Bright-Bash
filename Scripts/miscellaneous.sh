@@ -22,8 +22,9 @@ function QuoteVariables {
 
 
 function DebugToFile {
-    local file="$(Trim "$1")"
+    local message="$(Trim "$1")"
+    local file="$(Trim "$2")"
 
     CreateFile_IfNotExists "$file"
-    sudo su -c "echo "$1" >> "$file""
+    sudo su -c "echo "$message" >> "$file""
 }
