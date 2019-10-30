@@ -219,7 +219,7 @@ function ReadXMLValue {
 
 
 function ReplaceLine {
-    local lineIndex="$((1 + $(Trim "$1")))"
+    local lineIndex="$(Trim "$1")"
     local lineContent="$(Trim "$2")"
     local file="$(Trim "$3")"
 
