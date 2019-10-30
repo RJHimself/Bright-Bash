@@ -227,11 +227,11 @@ function ReplaceLine {
     AddLine "$lineIndex" "$lineContent" "$file"
 }
 function ReplaceLine_ByString {
-    local lineIndex
+    local strToFind=$(Trim "$1")
     local lineContent="$(Trim "$2")"
     local file="$(Trim "$3")"
 
-    lineIndex="$(SmlIndexOf $(Trim "$1") "$(ReadFile "$file")")"
+    local lineIndex="$(SmlIndexOf "$strToFind" "$(ReadFile "$file")")"
 
     ReplaceLine "$lineIndex" "$lineContent" "$file";
 }
