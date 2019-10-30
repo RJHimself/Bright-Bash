@@ -87,6 +87,8 @@ function GitCommitToday {
 
 function GitPushAll {
     local dir="$(Trim "$1")"
+
+
     $(FolderNotExists "$dir") && dir="$PWD"
 
 
