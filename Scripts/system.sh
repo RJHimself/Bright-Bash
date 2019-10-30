@@ -79,7 +79,7 @@ function DconfSettings_Load {
     name="$(Exclude_FirstLast 1 "$name")"
 
 
-    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
+    CreateFolder_IfNotExists "$toDir"
 
 
     if $(IsDownload "$loadingWay"); then dconf dump "$location" > "$toDir""$name.txt"
@@ -96,7 +96,7 @@ function DconfSettings_Only {
     name="$(Exclude_First 1 "$name")"
 
 
-    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
+    CreateFolder_IfNotExists "$toDir"
 
 
     if $(IsDownload "$loadingWay"); then WriteFile "$toDir""$name.txt" "$(dconf read "$location")"
