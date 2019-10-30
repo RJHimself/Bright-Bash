@@ -63,6 +63,16 @@ function CreateFolder {
 function CreateFolder_IfNotExists { CreateFolder "$@"; }
 
 
+function CreateFile {
+    local file="$(Trim "$1")"
+    local folder="$(GetFolder "$file")"
+
+    CreateFolder_IfNotExists "$folder"
+    $(FileNotExists "$file") && touch "$file"
+}
+function CreateFile_IfNotExists { CreateFile "$@"; }
+
+
 function ReadFile { cat "$1"; }
 function CreateFile { sudo touch "$1"; }
 function DeleteFile { sudo rm -rf "$1"; }
@@ -442,7 +452,8 @@ function AddCodeBlock_Bottom {
 }
 
 
-function Directory { echo $(dirname "$1"); }
+function Directory { GetFolder "$@"; }
+function GetFolder { echo "$(dirname "$(Trim "$1")")"; }
 
 
 function TransferFiles_Git { TransferFiles "git" "$@"; }

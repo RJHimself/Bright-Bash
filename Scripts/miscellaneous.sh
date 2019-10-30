@@ -19,3 +19,11 @@ function QuoteVariables {
 
     echo "$varGroup"
 }
+
+
+function DebugToFile {
+    local file="$(Trim "$1")"
+
+    CreateFile_IfNotExists "$file"
+    sudo su -c "echo "$1" >> "$file""
+}
