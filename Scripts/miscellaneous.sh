@@ -25,6 +25,9 @@ function DebugToFile {
     local message="$(Trim "$1")"
     local file="$(Trim "$2")"
 
+    if $(IsEmpty "$DebuggingFile") && $(IsEmpty "$file"); then return; fi
+    $(IsEmpty "$file") && file="$DebuggingFile"
+
     CreateFile_IfNotExists "$file"
     sudo su -c "echo "$message" >> "$file""
 }

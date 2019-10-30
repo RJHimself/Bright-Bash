@@ -14,6 +14,7 @@ AutoStartupPath="$HOME/.config/autostart"
 
 
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+DebuggingFile=""
 
 
 Download="DOWNLOAD"
