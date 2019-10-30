@@ -226,6 +226,16 @@ function ReplaceLine {
     DeleteLine "$lineIndex" "$file"
     AddLine "$lineIndex" "$lineContent" "$file"
 }
+function ReplaceLine_ByString {
+    local lineIndex
+    local lineContent="$(Trim "$2")"
+    local file="$(Trim "$3")"
+
+    lineIndex="$(SmlIndexOf $(Trim "$1") "$(ReadFile "$file")")"
+
+    ReplaceLine "$lineIndex" "$lineContent" "$file";
+}
+
 function AddLine {
     local lineIndex="$((1 + $(Trim "$1")))"
     local lineContent="$(Trim "$2")"
