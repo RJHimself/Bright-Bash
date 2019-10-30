@@ -218,6 +218,7 @@ function SmlReplaceLine {
     echo "$finalSml"
 }
 
+
 function SmlGetLine_First { SmlGetLine 0 "$@"; }
 function SmlGetLine_Last {
     local fullString="$1"
