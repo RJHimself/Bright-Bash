@@ -85,4 +85,14 @@ function GitCommitToday {
 }
 
 
+function GitPushAll {
+    local dir="$(Trim "$1")"
+    $(FolderNotExists "$dir") && dir="$PWD"
+
+
+    GitCommitToday "$dir"
+    sudo git push
+}
+
+
 function LinkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
