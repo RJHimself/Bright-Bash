@@ -13,5 +13,8 @@ CodeName="$VERSION_CODENAME"
 AutoStartupPath="$HOME/.config/autostart"
 
 
+ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+
+
 Download="DOWNLOAD"
 Upload="UPLOAD"
