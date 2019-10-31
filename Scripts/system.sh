@@ -304,6 +304,11 @@ function GenerateSystemVars {
 function GenerateDistroVars {
     OS=""
     VER=""
+    MainDistro=""
+    CodeName=""
+    Distro=""
+    DistroVersion=""
+
 
     if $(FileExists "/etc/os-release"); then
         # freedesktop.org and systemd
