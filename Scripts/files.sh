@@ -472,7 +472,7 @@ function TransferFiles {
     local target="$toDir""$(GetFileName "$fromDir")"
 
 
-    $(DirectoryNotExists "$toDir") && sudo mkdir -p -m 777 "$toDir"
+    $(DirectoryNotExists "$toDir") && CreateFolder "$toDir"
     if [[ "$transferType" == "git" ]]; then
     GitSync "$fromDir" "$toDir"
     elif $(IsAny "$transferType" "normal" "default"); then
