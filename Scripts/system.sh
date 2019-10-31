@@ -356,6 +356,15 @@ function GenerateComputerSpecsVars {
 }
 
 
+function IsParentDistro { [[ "$(LCase "$(Trim "$1")")" == "$ParentDistro" ]] && echo true || echo false; }
+function IsDistroCodeName { [[ "$(LCase "$(Trim "$1")")" == "$DistroCodeName" ]] && echo true || echo false; }
+function IsDistro { [[ "$(LCase "$(Trim "$1")")" == "$Distro" ]] && echo true || echo false; }
+function IsDistroVersion { [[ "$(LCase "$(Trim "$1")")" == "$DistroVersion" ]] && echo true || echo false; }
+
+
+function IfIsParentDistro { $(IsParentDistro "$1") && echo "$2" || echo ""; }
+
+
 function InjectLib {
     local allShellFiles="$(SmlCutLines_Empty "$(SmlTrim "$1")")"
 
