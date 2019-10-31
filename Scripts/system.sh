@@ -304,8 +304,8 @@ function GenerateSystemVars {
 function GenerateDistroVars {
     OS=""
     VER=""
-    MainDistro=""
-    CodeName=""
+    ParentDistro=""
+    DistroCodeName=""
     Distro=""
     DistroVersion=""
 
@@ -315,13 +315,13 @@ function GenerateDistroVars {
         source /etc/os-release
         OS="$NAME"
         VER="$VERSION_ID"
-        MainDistro="$ID"
-        CodeName="$VERSION_CODENAME"
+        ParentDistro="$ID"
+        DistroCodeName="$VERSION_CODENAME"
     elif type lsb_release >/dev/null 2>&1; then
         # linuxbase.org
         OS=$(lsb_release -si)
         VER=$(lsb_release -sr)
-        CodeName="$(lsb_release --codename --short)"
+        DistroCodeName="$(lsb_release --codename --short)"
     elif $(FileExists "/etc/lsb-release"); then
         # For some versions of Debian/Ubuntu without lsb_release command
         source "/etc/lsb-release"
