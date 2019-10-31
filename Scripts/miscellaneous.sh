@@ -27,6 +27,7 @@ function DebugToFile {
 
     if $(IsEmpty "$DebuggingFile") && $(IsEmpty "$file"); then return; fi
     $(IsEmpty "$file") && file="$DebuggingFile"
+    DebuggingFile="$file"
 
     CreateFile_IfNotExists "$file"
     sudo su -c "echo "$message" >> "$file""
@@ -35,3 +36,4 @@ function DebugToFile {
     echo "$message"
     echo "---------------------"
 }
+function DebugToFile_Clear { $(FileExists "$DebuggingFile") && sudo rm -f "$DebuggingFile"; }
