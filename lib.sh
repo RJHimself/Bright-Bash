@@ -14,6 +14,7 @@ elif [[ "$BASH_SOURCE" != "" ]]; then LibFullPath="$BASH_SOURCE"
 else LibFullPath="$0"
 fi
 
+[[ "${LibFullPath: 0:1}" == "." ]] && LibFullPath="$PWD${LibFullPath: 1}"
 DIR="$(dirname "$LibFullPath")"
 
 # Creating the "$HOME/bin/bright-bash" LINK
