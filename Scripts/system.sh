@@ -222,6 +222,8 @@ function AutoStartup_FileName {
 
     echo "$fileName"
 }
+function IsAutoStartup { FileExists "$AutoStartupPath/$(AutoStartup_FileName "$1" "$2")"; }
+function IsNotAutoStartup { $(IsAutoStartup "$@") && echo false || echo true; }
 
 
 function PrintFunction { declare -f "$1"; }
