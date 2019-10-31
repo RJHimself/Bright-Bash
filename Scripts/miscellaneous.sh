@@ -30,4 +30,8 @@ function DebugToFile {
 
     CreateFile_IfNotExists "$file"
     sudo su -c "echo "$message" >> "$file""
+
+    echo "---------------------"
+    echo "$message"
+    echo "---------------------"
 }
