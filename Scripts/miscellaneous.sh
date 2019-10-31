@@ -31,6 +31,7 @@ function DebugToFile {
 
     CreateFile_IfNotExists "$file"
     sudo su -c "echo "$message" >> "$file""
+    chmod 777 "$file"
 
     echo "---------------------"
     echo "$message"
