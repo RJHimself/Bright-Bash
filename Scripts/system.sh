@@ -212,7 +212,7 @@ function AutoStartup {
     # Remove All User Restrictions to this File
     sudo chmod 777 "$AutoStartupPath/$fileName"
 }
-function AutoStartup_Remove { sudo rm -f "$AutoStartupPath/$(AutoStartup_FileName "$1")"; }
+function AutoStartup_Remove { sudo rm -f "$AutoStartupPath/$(AutoStartup_FileName "$1" "$2")"; }
 function AutoStartup_FileName {
     local fileName="$(Trim "$1")"
     local file="$(Trim "$2")"
