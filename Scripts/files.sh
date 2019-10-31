@@ -66,9 +66,10 @@ function CreateFolder_IfNotExists { CreateFolder "$@"; }
 function CreateFile {
     local file="$(Trim "$1")"
     local folder="$(GetFolder "$file")"
+    local permissions="777"
 
     CreateFolder_IfNotExists "$folder"
-    $(FileNotExists "$file") && touch "$file"
+    $(FileNotExists "$file") && touch "$file"; chmod "$permissions" "$file"
 }
 function CreateFile_IfNotExists { CreateFile "$@"; }
 
