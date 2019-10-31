@@ -183,8 +183,7 @@ function AutoStartup {
     local varGroup
 
 
-    $(IsEmpty "$fileName") && fileName="$(GetFileName_NoExtension "$file")"
-    fileName="$(AddToEnd_IfNotContains ".desktop" "$fileName")"
+    fileName="$(AutoStartup_FileName "$fileName" "$file")"
     $(VariableExists "$3") && varGroup=" ""$(QuoteVariables "${@: 3}")"
 
 
@@ -212,6 +211,16 @@ function AutoStartup {
     sudo chmod +x "$AutoStartupPath/$fileName"
     # Remove All User Restrictions to this File
     sudo chmod 777 "$AutoStartupPath/$fileName"
+}
+function AutoStartup_Remove { sudo rm -f "$AutoStartupPath/$(AutoStartup_FileName "$1")"; }
+function AutoStartup_FileName {
+    local fileName="$(Trim "$1")"
+    local file="$(Trim "$2")"
+
+    $(IsEmpty "$fileName") && fileName="$(GetFileName_NoExtension "$file")"
+    fileName="$(AddToEnd_IfNotContains ".desktop" "$fileName")"
+
+    echo "$fileName"
 }
 
 
