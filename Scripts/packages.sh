@@ -164,3 +164,4 @@ function UpdatePkg_ALL {
 
 
 function IsPkgManagerRunning { $(IsNotEmpty "$($1 --version)") && echo true || echo false; }
+function IsNotPkgManagerRunning { $(IsPkgManagerRunning "$@") && echo false || echo true; }
