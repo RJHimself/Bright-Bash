@@ -310,10 +310,13 @@ function GenerateDistroVars {
         source /etc/os-release
         OS="$NAME"
         VER="$VERSION_ID"
+        MainDistro="$ID"
+        CodeName="$VERSION_CODENAME"
     elif type lsb_release >/dev/null 2>&1; then
         # linuxbase.org
         OS=$(lsb_release -si)
         VER=$(lsb_release -sr)
+        CodeName="$(lsb_release --codename --short)"
     elif $(FileExists "/etc/lsb-release"); then
         # For some versions of Debian/Ubuntu without lsb_release command
         source "/etc/lsb-release"
@@ -334,6 +337,10 @@ function GenerateDistroVars {
         OS=$(uname -s)
         VER=$(uname -r)
     fi
+
+
+    Distro="$OS"
+    DistroVersion="$VER"
 }
 function GenerateComputerSpecsVars {
     RAM=$(grep MemTotal /proc/meminfo | awk '{print $2}')
