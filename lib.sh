@@ -17,7 +17,7 @@ fi
 DIR="$(dirname "$LibFullPath")"
 
 # Creating the "$HOME/bin/bright-bash" LINK
-sudo ln -sf "$LibFullPath" "$BashLibPath"
+CreateFileLink "$LibFullPath" "$BashLibPath"
 
 
 source "$DIR/variables.sh"
