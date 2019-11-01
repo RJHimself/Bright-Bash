@@ -52,7 +52,7 @@ function GitGetChanges {
 
 
     cd "$fromDir"
-    sudo git ls-files -m | sudo tar Tc - | sudo tar Cx "$toDir"
+    sudo git ls-files -m -o | sudo tar Tc - | sudo tar Cx "$toDir"
     cd "$tmpOldPath"
 }
 
