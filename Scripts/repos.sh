@@ -99,15 +99,19 @@ function GitPushAll {
 
 function GitRestartTest {
     local folder="$(Trim "$1")"
+    local oldDir="$PWD"
 
 
+    $(IsEmpty "$folder") && folder="$PWD"
     [[ $(Left 1 "$folder") == "." ]] && folder="$PWD${folder: 1}"
 
 
+    cd "$folder"
     sudo rm -rf "$folder/.git"
     git init
     sudo git add -A
     sudo git commit -m "Initial Commit"
+    cd "$oldDir"
 }
 
 
