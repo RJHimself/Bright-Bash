@@ -97,4 +97,18 @@ function GitPushAll {
 }
 
 
+function GitRestartTest {
+    local folder="$(Trim "$1")"
+
+
+    [[ $(Left 1 "$folder") == "." ]] && folder="$PWD${folder: 1}"
+
+
+    sudo rm -rf "$folder/.git"
+    git init
+    sudo git add -A
+    sudo git commit -m "Initial Commit"
+}
+
+
 function LinkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
