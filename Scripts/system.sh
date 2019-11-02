@@ -154,6 +154,17 @@ function AutoLogin {
         sudo sed --in-place "s/.*AutomaticLogin=.*/# AutomaticLogin=$USER/" "$loginFile"
         fi
     ;;
+    "UNITY")
+        loginFile="/etc/gdm3/custom.conf"
+
+        if $(IsON "$state"); then
+        sudo sed --in-place "s/.*AutomaticLoginEnable =.*/AutomaticLoginEnable=true/" "$loginFile"
+        sudo sed --in-place "s/.*AutomaticLogin =.*/AutomaticLogin=$USER/" "$loginFile"
+        elif $(IsOFF "$state"); then
+        sudo sed --in-place "s/.*AutomaticLoginEnable=.*/# AutomaticLoginEnable=true/" "$loginFile"
+        sudo sed --in-place "s/.*AutomaticLogin=.*/# AutomaticLogin=$USER/" "$loginFile"
+        fi
+    ;;
     "KDE")
         loginFile="/etc/sddm.conf"
 
@@ -248,6 +259,8 @@ function RunningDesktop {
     # case "$(RunningDesktop)" in
     # "GNOME")
     # ;;
+    # "UNITY")
+    # ;;
     # "KDE")
     # ;;
     # "XFCE")
@@ -257,6 +270,7 @@ function RunningDesktop {
 
     local desktopsList="$(SmlTrim "$(SmlCutLines_Empty "
     GNOME
+    UNITY
     KDE
     XFCE
     ")")"
@@ -270,7 +284,7 @@ function RunningDesktop {
 }
 function IsDesktop {
     local tmpDesktop="$(Trim "$(UCase "$1")")";
-    local currentDesktop="$XDG_CURRENT_DESKTOP"
+    local currentDesktop="$(UCase "$XDG_CURRENT_DESKTOP")"
 
     $(Contains "$tmpDesktop" "$currentDesktop") && echo true || echo false
 }
@@ -281,6 +295,11 @@ function GetDesktopVersion {
 
     case "$(RunningDesktop)" in
     "GNOME")
+        versionLocation="/usr/share/gnome/gnome-version.xml"
+        version="$(ReadXMLValue "platform" "$versionLocation")"
+        version="$version"".""$(ReadXMLValue "minor" "$versionLocation")"
+        version="$version"".""$(ReadXMLValue "micro" "$versionLocation")"
+    "UNITY")
         versionLocation="/usr/share/gnome/gnome-version.xml"
         version="$(ReadXMLValue "platform" "$versionLocation")"
         version="$version"".""$(ReadXMLValue "minor" "$versionLocation")"
