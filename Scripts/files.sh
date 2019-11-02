@@ -94,15 +94,12 @@ function DeleteFile { sudo rm -rf "$1"; }
 function WriteFile {
     local file="$(Trim "$1")"
     local content="$2"
+    local permissions="$(GetPermissions "$file")"
 
-    echo "$content" > "$file"
+    sudo su -c "echo \"$content\" > \"$file\""
+    ChangePermissions 777 "$file"
 }
-function UpdateFile {
-    local file="$1"
-    local content="$2"
-
-    echo "$content" > "$file"
-}
+function UpdateFile { WriteFile "$@"; }
 
 
 function GetFileName {
