@@ -38,12 +38,12 @@ function CountArguments { echo "$#"; }
 
 function UpdateFileLink { echo $(CreateFileLink "$1"); }
 function CreateFileLink {
-    local File="$1"
-    local Link="$2"
+    local file="$(SwitchDirSymbols "$1")"
+    local link="$(SwitchDirSymbols "$2")"
 
     #? Sudo / Admin / Root Support
-    if $(IsAdmin); then sudo ln -sf "$File" "$Link"
-    else ln -sf "$File" "$Link"
+    if $(IsAdmin); then sudo ln -sf "$file" "$link"
+    else ln -sf "$file" "$link"
     fi
 }
 
@@ -158,6 +158,7 @@ function SwitchDirSymbols {
     local tmpDir="$(Trim "$1")"
 
     [[ "$(Left 1 "$tmpDir")" == "~" ]] && tmpDir="$HOME${tmpDir: 1}"
+    [[ "$(Left 1 "$tmpDir")" == "." ]] && tmpDir="$PWD${tmpDir: 1}"
     [[ "$(Left 1 "$tmpDir")" != "/" ]] && finalPath="/$tmpDir"
 
     echo "$tmpDir"
