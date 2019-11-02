@@ -98,7 +98,7 @@ function GitPushAll {
 
 
     GitCommitToday "$dir"
-    sudo git push
+    GitPush "$dir"
 }
 
 
