@@ -87,6 +87,7 @@ function GitCommitToday {
 
 function GitInit { ExeOnDir "git init" "$@"; }
 function GitAddAll { ExeOnDir "sudo git add -A" "$@"; }
+function GitUndoChanges { ExeOnDir "sudo git reset --hard" "$@"; }
 
 
 function GitPush { ExeOnDir "git push" "$@"; }
