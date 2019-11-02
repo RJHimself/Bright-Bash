@@ -15,6 +15,15 @@ function IsFile { echo $(FileExists "$@"); }
 function IsFolder { echo $(FolderExists "$@"); }
 
 
+function ExeOnDir {
+    local dir="$(Trim "$1")"
+    local toExe="$(Trim "$1")"
+    local oldDir="$PWD"
+
+    eval "cd \"$dir\"; $toExe; cd \"$oldDir\""
+}
+
+
 function TempFolder { echo "$(mktemp -d)"; }
 function TempFile { echo "$(mktemp)"; }
 
