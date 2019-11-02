@@ -230,11 +230,11 @@ function MkExecutable_AllDir {
 
 
     $(IsEmpty "$dir") && dir="$PWD"
-    filesList="$(find "$dir"/* \( -exec [ -f {}/.git ] \; -prune \) -o \( -name .git -prune \) -o -print)"
+    filesList="$(find ./* -type d -o \( -name .git -prune \) -o -print)"
 
 
     while IFS= read -r file; do
-    chmod +x "$file"
+    sudo chmod +x "$file"
     done <<< "$filesList"
 }
 
