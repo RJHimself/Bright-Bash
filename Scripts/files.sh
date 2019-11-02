@@ -89,14 +89,18 @@ function CreateFile_IfNotExists { CreateFile "$@"; }
 
 
 function ReadFile { cat "$1"; }
-function CreateFile { sudo touch "$1"; }
 function DeleteFile { sudo rm -rf "$1"; }
 function WriteFile {
     local file="$(Trim "$1")"
     local content="$2"
 
-    local permissions="$(GetPermissions "$file")"
+    local permissions
     local tmpFile="$(TempFile)"
+
+
+    CreateFile_IfNotExists "$file"
+    permissions="$(GetPermissions "$file")"
+
 
     echo "$content" > "$tmpFile"
     sudo mv "$tmpFile" "$file"
