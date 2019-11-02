@@ -102,6 +102,16 @@ function AddPkg_wget {
     sudo apt update
 }
 
+
+function AddPkg_GnomeExtension_Only {
+    local extension="$(Trim "$1")"
+    local uuid="$(unzip -c "$extension" metadata.json | grep uuid | cut -d \" -f4)"
+
+    mkdir -p "$HOME/.local/share/gnome-shell/extensions/$uuid"
+    unzip -q "$extension" -d "$HOME/.local/share/gnome-shell/extensions/$uuid/"
+
+    gnome-shell-extension-tool -e "$uuid"
+}
 function AddPkg_GnomeExtensions {
     local gndExtLocation="$1"
     local gndExtensions
@@ -113,13 +123,7 @@ function AddPkg_GnomeExtensions {
 
 
     while IFS= read -r extension; do
-        local uuid="$(unzip -c "$extension" metadata.json | grep uuid | cut -d \" -f4)"
-        echo "$uuid"
-
-        mkdir -p "$HOME/.local/share/gnome-shell/extensions/$uuid"
-        unzip -q "$extension" -d ~/.local/share/gnome-shell/extensions/$uuid/
-
-        gnome-shell-extension-tool -e "$uuid"
+    AddPkg_GnomeExtension_Only "$extension"
     done <<< "$gndExtensions"
 }
 function AddPkg_Snap {
