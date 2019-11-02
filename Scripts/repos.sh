@@ -85,6 +85,11 @@ function GitCommitToday {
 }
 
 
+function GitInit { ExeOnDir "git init" "$@"; }
+function GitAddAll { ExeOnDir "sudo git add -A" "$@"; }
+
+
+function GitPush { ExeOnDir "git push" "$@"; }
 function GitPushAll {
     local dir="$(Trim "$1")"
 
