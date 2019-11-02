@@ -216,26 +216,51 @@ function ListDir {
 
     echo "$list"
 }
+function ListFiles {
+    local dir="$(IfTrimNotEmpty "$1" "$PWD")"
+    find "$dir"/* -type d -o \( -name .git -prune \) -o -print
+}
+function ListFolders {
+    local dir="$(IfTrimNotEmpty "$1" "$PWD")"
+    find "$dir"/* -type f -o \( -name .git -prune \) -o -print
+}
 
 
 function GetPermissions { echo $(stat -c "%a" "$1"); }
 function ReadPermissions { GetFilePerm "$1"; }
+function ChangePermissions {
+    local permissions="$(IfTrimNotEmpty "$1" "777")"
+    local location="$(IfTrimNotEmpty "$2" "$PWD")"
+
+    sudo chmod "$permissions" "$location";
+}
 
 
 function MkExecutable { chmod +x "$@"; }
 function Executable { chmod +x "$@"; }
 function MkExecutable_AllDir {
-    local dir="$(Trim "$1")"
-    local filesList
-
-
-    $(IsEmpty "$dir") && dir="$PWD"
-    filesList="$(find "$dir"/* -type d -o \( -name .git -prune \) -o -print)"
+    local dir="$(IfTrimNotEmpty "$1" "$PWD")"
+    local filesList="$(ListFiles "$dir")"
 
 
     while IFS= read -r file; do
     sudo chmod +x "$file"
     done <<< "$filesList"
+}
+
+
+function ChangePermissions_AllDir {
+    local permissions="$1"
+    local dir="$2"
+
+
+    while IFS= read -r file; do
+    ChangePermissions "$permissions" "$file"
+    done <<< "$(ListFiles "$dir")"
+
+    while IFS= read -r folder; do
+    ChangePermissions "$permissions" "$folder"
+    done <<< "$(ListFolders "$dir")"
 }
 
 

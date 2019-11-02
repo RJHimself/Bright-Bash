@@ -38,3 +38,6 @@ function DebugToFile {
     echo "---------------------"
 }
 function DebugToFile_Clear { $(FileExists "$DebuggingFile") && sudo rm -f "$DebuggingFile"; }
+
+
+function IfTrimNotEmpty { $(IsNotEmpty "$(Trim "$1")") && echo "$(Trim "$1")" || echo "$(Trim "$2")"; }

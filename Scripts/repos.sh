@@ -103,6 +103,9 @@ function GitPushAll {
 }
 
 
+function GitHistoryTree { ExeOnDir "git log --graph --oneline --all" "$@"; }
+
+
 function GitRestartTest {
     local folder="$(Trim "$1")"
     local oldDir="$PWD"
