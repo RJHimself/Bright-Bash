@@ -1,5 +1,7 @@
 function GitHistoryTree { ExeOnDir "git log --graph --oneline --all" "$@"; }
 function GitChangesTree { ExeOnDir "git tree" "$@"; }
+function git-history-tree { ExeOnDir "git log --graph --oneline --all" "$@"; }
+function git-changes-tree { ExeOnDir "git tree" "$@"; }
 
 
 function LastestReleaseLink { echo "https://api.github.com/repos/$1/$2/releases/latest"; }
