@@ -92,10 +92,7 @@ function GitUndoChanges { ExeOnDir "sudo git reset --hard" "$@"; }
 
 function GitPush { ExeOnDir "git push" "$@"; }
 function GitPushAll {
-    local dir="$(Trim "$1")"
-
-
-    $(FolderNotExists "$dir") && dir="$PWD"
+    local dir="$(IfTrimNotEmpty "$1" "$PWD")"
 
 
     GitCommitToday "$dir"
