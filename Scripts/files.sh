@@ -86,10 +86,8 @@ function CreateFile {
     $(FileNotExists "$file") && sudo touch "$file"; sudo chmod "$permissions" "$file"
 }
 function CreateFile_IfNotExists { CreateFile "$@"; }
-
-
-function ReadFile { cat "$1"; }
-function DeleteFile { sudo rm -rf "$1"; }
+function ReadFile { sudo cat "$(Trim "$1")"; }
+function DeleteFile { sudo rm -rf "$(Trim "$1")"; }
 function WriteFile {
     local file="$(Trim "$1")"
     local content="$2"
