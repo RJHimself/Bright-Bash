@@ -13,3 +13,7 @@ DebuggingFile=""
 
 Download="DOWNLOAD"
 Upload="UPLOAD"
+
+
+GitSyncLocation="$HOME/.gitsync"
+GitIgnoreLocation="$HOME/.gitignore"
