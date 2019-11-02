@@ -184,6 +184,7 @@ function ListDir {
 
 
     # Var Treatment
+    $(IsEmpty "$objType") && objType="*"
     [[ "$objType" == "*" ]] && hasType=false
 
 
