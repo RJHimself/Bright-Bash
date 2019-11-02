@@ -16,9 +16,13 @@ function IsFolder { echo $(FolderExists "$@"); }
 
 
 function ExeOnDir {
-    local dir="$(Trim "$1")"
     local toExe="$(Trim "$1")"
+    local dir="$(Trim "$2")"
     local oldDir="$PWD"
+
+
+    $(IsEmpty "$dir") && dir="$PWD"
+
 
     eval "cd \"$dir\"; $toExe; cd \"$oldDir\""
 }
