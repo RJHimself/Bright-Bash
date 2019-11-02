@@ -1,3 +1,7 @@
+function GitHistoryTree { ExeOnDir "git log --graph --oneline --all" "$@"; }
+function GitChangesTree { ExeOnDir "git tree" "$@"; }
+
+
 function LastestReleaseLink { echo "https://api.github.com/repos/$1/$2/releases/latest"; }
 function GhRelease { curl -s "$1" | grep -o "$2"; }
 
@@ -97,10 +101,6 @@ function GitPushAll {
     GitCommitToday "$dir"
     GitPush "$dir"
 }
-
-
-function GitHistoryTree { ExeOnDir "git log --graph --oneline --all" "$@"; }
-function GitChangesTree { ExeOnDir "git tree" "$@"; }
 
 
 function GitRestartTest {
