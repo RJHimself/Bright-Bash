@@ -94,7 +94,6 @@ function GitPush { ExeOnDir "git push" "$@"; }
 function GitPushAll {
     local dir="$(IfTrimNotEmpty "$1" "$PWD")"
 
-
     GitCommitToday "$dir"
     GitPush "$dir"
 }
