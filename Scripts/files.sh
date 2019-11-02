@@ -83,7 +83,7 @@ function CreateFile {
     local permissions="777"
 
     CreateFolder_IfNotExists "$folder"
-    $(FileNotExists "$file") && touch "$file"; chmod "$permissions" "$file"
+    $(FileNotExists "$file") && sudo touch "$file"; chmod "$permissions" "$file"
 }
 function CreateFile_IfNotExists { CreateFile "$@"; }
 
