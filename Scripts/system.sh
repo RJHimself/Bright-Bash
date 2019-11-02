@@ -299,6 +299,7 @@ function GetDesktopVersion {
         version="$(ReadXMLValue "platform" "$versionLocation")"
         version="$version"".""$(ReadXMLValue "minor" "$versionLocation")"
         version="$version"".""$(ReadXMLValue "micro" "$versionLocation")"
+    ;;
     "UNITY")
         versionLocation="/usr/share/gnome/gnome-version.xml"
         version="$(ReadXMLValue "platform" "$versionLocation")"
