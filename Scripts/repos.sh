@@ -100,6 +100,7 @@ function GitPushAll {
 
 
 function GitHistoryTree { ExeOnDir "git log --graph --oneline --all" "$@"; }
+function GitChangesTree { ExeOnDir "git tree" "$@"; }
 
 
 function GitRestartTest {
