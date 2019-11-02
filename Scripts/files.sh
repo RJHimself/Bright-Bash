@@ -184,6 +184,7 @@ function ListDir {
 
 
     # Var Treatment
+    $(IsEmpty "$tmpDir") && tmpDir="$PWD"
     $(IsEmpty "$objType") && objType="*"
     [[ "$objType" == "*" ]] && hasType=false
 
@@ -223,6 +224,19 @@ function ReadPermissions { GetFilePerm "$1"; }
 
 function MkExecutable { chmod +x "$@"; }
 function Executable { chmod +x "$@"; }
+function MkExecutable_AllDir {
+    local dir="$(Trim "$1")"
+    local filesList
+
+
+    $(IsEmpty "$dir") && dir="$PWD"
+    filesList="$(find "$dir/"* -type f)"
+
+
+    while IFS= read -r file; do
+    chmod +x "$file"
+    done <<< "$filesList"
+}
 
 
 function PrepareForSed {
