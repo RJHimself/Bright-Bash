@@ -96,8 +96,8 @@ function GitAddAll { ExeOnDir "sudo git add -A" "$@"; }
 function GitUndoChanges { ExeOnDir "sudo git reset --hard" "$@"; }
 
 
-function GitPull { ExeOnDir "git pull" "$@"; }
-function GitPush { ExeOnDir "git push" "$@"; }
+function GitPull { ExeOnDir "sudo git pull" "$@"; }
+function GitPush { ExeOnDir "sudo git push" "$@"; }
 function GitPushAll {
     local dir="$(IfTrimNotEmpty "$1" "$PWD")"
 
