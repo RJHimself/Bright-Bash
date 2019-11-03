@@ -145,13 +145,12 @@ function AutoLogin {
     case "$(RunningDesktop)" in
     "GNOME")
         loginFile="/etc/gdm3/custom.conf"
+        sudo sed --in-place "s/.*AutomaticLogin.*=.*/AutomaticLogin=$USER/" "$loginFile"
 
         if $(IsON "$state"); then
-        sudo sed --in-place "s/.*AutomaticLoginEnable =.*/AutomaticLoginEnable=true/" "$loginFile"
-        sudo sed --in-place "s/.*AutomaticLogin =.*/AutomaticLogin=$USER/" "$loginFile"
+        sudo sed --in-place "s/.*AutomaticLoginEnable.*=.*/AutomaticLoginEnable=true/" "$loginFile"
         elif $(IsOFF "$state"); then
-        sudo sed --in-place "s/.*AutomaticLoginEnable=.*/# AutomaticLoginEnable=true/" "$loginFile"
-        sudo sed --in-place "s/.*AutomaticLogin=.*/# AutomaticLogin=$USER/" "$loginFile"
+        sudo sed --in-place "s/.*AutomaticLoginEnable.*=.*/# AutomaticLoginEnable=true/" "$loginFile"
         fi
     ;;
     "UNITY")
