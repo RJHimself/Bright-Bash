@@ -50,6 +50,10 @@ function RefreshShell {
 }
 
 
+function pause { read -s -n 1 -p "Press any key to continue…" }
+function Pause { pause; }
+
+
 function DconfSettings {
     # ------------ Examples ------------
     # > Upload:
