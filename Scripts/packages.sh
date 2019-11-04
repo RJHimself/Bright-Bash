@@ -23,8 +23,7 @@ function AddPkg_apt {
 
     sleep 1
     sudo apt update
-    sleep 2
-    for pkg in $packages; do yes | sudo apt install -y "$pkg"; done
+    for pkg in $packages; do sleep 1; yes | sudo apt install -y "$pkg"; done
     sleep 1
     sudo apt update
     sleep 1
