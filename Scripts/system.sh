@@ -110,6 +110,27 @@ function DconfSettings_Only {
 }
 
 
+function GetScriptPath {
+    # This Function NEEDS to get passed the "$0" value like this:
+    # GetScriptPath "$0"
+    # Otherwise it just doesn't work at all ... XD
+
+    if $(IsEmpty "$1"); then return; fi
+
+
+    local possiblePath="$1"
+    local scriptPath
+
+
+    if [[ "$BASH_SOURCE" != "" ]]; then scriptPath="$BASH_SOURCE"
+    else scriptPath="$possiblePath"
+    fi
+
+
+    echo "$scriptPath"
+}
+
+
 function IsAdmin { HasSudo; }
 function IsRoot { [[ $EUID -ne 0 ]] && echo false || echo true; }
 

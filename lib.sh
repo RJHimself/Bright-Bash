@@ -13,8 +13,7 @@ LocalExtraLib="$HOME/lib/Bash/Extra"
 [[ ! -d "$ExecutablesDir" ]] && mkdir -m 777 "$ExecutablesDir"
 
 if [[ -f "$BashLibPath" ]]; then LibFullPath="$(readlink -f "$BashLibPath")"
-elif [[ "$BASH_SOURCE" != "" ]]; then LibFullPath="$BASH_SOURCE"
-else LibFullPath="$0"
+else LibFullPath="$(GetScriptPath "$0")"
 fi
 
 
@@ -44,5 +43,5 @@ $HOME/.zshrc
 
 
 # Local Extra Functions & Variables
-CreateFile_IfNotExists "$LocalExtraLib/lib.sh"
+CreateFile_IfNotExists "$LocalExtraLib/lib.sh" "$BashScriptHeader"
 source "$LocalExtraLib/lib.sh"
