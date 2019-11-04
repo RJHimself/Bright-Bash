@@ -16,8 +16,7 @@ function AddPkg_apt {
 
 
     if $(IsNotEmpty "$repo"); then
-    sleep 1
-    echo -e "\n" | sudo add-apt-repository -y "$repo"
+    sleep 1; echo -e "\n" | sudo add-apt-repository -y "$repo"
     fi
 
 
