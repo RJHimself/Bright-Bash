@@ -80,6 +80,7 @@ function GetScriptPath {
 
 function CleanTrash { sudo rm -rf "$HOME/.local/share/Trash/"*; }
 function CleanTemp { sudo rm -rf "/tmp/"*; }
+function CleanTmp { CleanTemp; }
 
 
 function DconfSettings {
