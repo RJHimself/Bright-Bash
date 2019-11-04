@@ -54,6 +54,34 @@ function pause { read -s -n 1 -p "Press any key to continue…"; }
 function Pause { pause; }
 
 
+function GetScriptPath {
+    # This Function NEEDS to get passed the "$0" value like this:
+    # GetScriptPath "$0"
+    # Otherwise it just doesn't work at all ... XD
+
+    if $(IsEmpty "$1"); then return; fi
+
+
+    local possiblePath="$1"
+    local scriptPath
+
+
+    if [[ "$BASH_SOURCE" != "" ]]; then scriptPath="$BASH_SOURCE"
+    else scriptPath="$possiblePath"
+    fi
+
+
+    [[ "${scriptPath: 0:1}" == "." ]] && scriptPath="$PWD${scriptPath: 1}"
+
+
+    echo "$scriptPath"
+}
+
+
+function CleanTrash { sudo rm -rf "$HOME/.local/share/Trash/"*; }
+function CleanTemp { sudo rm -rf "/tmp/"*; }
+
+
 function DconfSettings {
     # ------------ Examples ------------
     # > Upload:
@@ -107,30 +135,6 @@ function DconfSettings_Only {
     elif $(IsUpload "$loadingWay"); then dconf write "$location" "$(ReadFile "$toDir""$name.txt")"
     else echo "dconfSettings can NOT Understand what ya mean by this: $loadingWay"
     fi
-}
-
-
-function GetScriptPath {
-    # This Function NEEDS to get passed the "$0" value like this:
-    # GetScriptPath "$0"
-    # Otherwise it just doesn't work at all ... XD
-
-    if $(IsEmpty "$1"); then return; fi
-
-
-    local possiblePath="$1"
-    local scriptPath
-
-
-    if [[ "$BASH_SOURCE" != "" ]]; then scriptPath="$BASH_SOURCE"
-    else scriptPath="$possiblePath"
-    fi
-
-
-    [[ "${scriptPath: 0:1}" == "." ]] && scriptPath="$PWD${scriptPath: 1}"
-
-
-    echo "$scriptPath"
 }
 
 
