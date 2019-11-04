@@ -21,7 +21,6 @@ function AddPkg_apt {
 
 
     sudo apt update
-    yes | sudo apt upgrade
     for pkg in $packages; do yes | sudo apt install -y "$pkg"; done
     sudo apt update
     yes | sudo apt upgrade
