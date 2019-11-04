@@ -12,10 +12,11 @@ LocalExtraLib="$HOME/lib/Bash/Extra"
 # Getting Original Library's Directory
 [[ ! -d "$ExecutablesDir" ]] && mkdir -m 777 "$ExecutablesDir"
 
-if [[ -f "$BashLibPath" ]];
-then LibFullPath="$(readlink -f "$BashLibPath")"
-else LibFullPath="$(GetScriptPath "$0")"
+if [[ -f "$BashLibPath" ]]; then LibFullPath="$(readlink -f "$BashLibPath")"
+elif [[ "$BASH_SOURCE" != "" ]]; then LibFullPath="$BASH_SOURCE"
+else LibFullPath="$0"
 fi
+[[ "${LibFullPath: 0:1}" == "." ]] && LibFullPath="$PWD${LibFullPath: 1}"
 
 
 DIR="$(dirname "$LibFullPath")"
