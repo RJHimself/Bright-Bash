@@ -127,6 +127,9 @@ function GetScriptPath {
     fi
 
 
+    [[ "${scriptPath: 0:1}" == "." ]] && scriptPath="$PWD${scriptPath: 1}"
+
+
     echo "$scriptPath"
 }
 
