@@ -2,8 +2,11 @@
 LibName="bright-bash"
 ExecutablesDir="$HOME/bin"
 BashLibPath="$HOME/bin/$LibName"
+
 DIR=""
 LibFullPath=""
+
+LocalExtraLib="$HOME/lib/Bash/Extra"
 
 
 # Getting Original Library's Directory
@@ -38,3 +41,8 @@ InjectLib "
 $HOME/.bashrc
 $HOME/.zshrc
 "
+
+
+# Local Extra Functions & Variables
+CreateFile_IfNotExists "$LocalExtraLib/lib.sh"
+source "$LocalExtraLib/lib.sh"
