@@ -6,7 +6,7 @@ PathName=".path"
 PathLocation="$PathDir/$PathName"
 
 
-BashScriptHeader="#\!/bin/bash"
+BashScriptHeader="#!/bin/bash"
 
 
 AutoStartupPath="$HOME/.config/autostart"
