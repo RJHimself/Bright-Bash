@@ -51,7 +51,8 @@ function StatusFile_GetStatus {
     statusBool="$(Trim "$statusBool")"
     statusBool="$(LCase "$statusBool")"
 
-    [[ "$statusBool" == "true" ]] && echo true || echo false
+    [[ "$statusBool" == "true" ]] && echo true
+    [[ "$statusBool" == "false" ]] && echo false
 }
 function StatusFile_WriteStatus {
     local statusBool="$(LCase "$(IfTrimNotEmpty "$1" "true")")"
@@ -595,27 +596,27 @@ function Wait_EndOfChanges {
     WriteFile "$fileOnChange" "$onChangeCode"
     echo "fileOnChange:"
     ReadFile "$fileOnChange"
-    source "$fileOnChange" &
+    eval "source \"$fileOnChange\" &"
 
     Entitle "3"
 
+    echo "StatusFile_GetStatus '$fileStatus'"
     StatusFile_GetStatus "$fileStatus"
-    echo "ReadFile '$fileStatus'"
     ReadFile "$fileStatus"
 
     while $(StatusFile_GetStatus "$fileStatus"); do
 
     Entitle "4"
 
-    StatusFile_WriteStatus false "$fileStatus"
+    # StatusFile_WriteStatus false "$fileStatus"
     sleep $waitTime
     done
 
     Entitle "5"
 
-    # Removing Temp Data
-    pkill -f "$fileOnChange"
-    sudo rm -f "$fileOnChange"
+    # # Removing Temp Data
+    # pkill -f "$fileOnChange"
+    # sudo rm -f "$fileOnChange"
     # sudo rm -f "$fileStatus"
-    # There were No changes for this Amount of Time: $waitTime
+    # # There were No changes for this Amount of Time: $waitTime
 }
