@@ -585,6 +585,7 @@ function Wait_EndOfChanges {
     local fileOnChange="$(TempFile)"
     local fileStatus="$(StatusFile true)"
     local onChangeCode="onchange \"$folderProcess\" -- echo \"true\" > \"$fileStatus\""
+    local keepWaiting=true
 
 
     Entitle "
@@ -605,12 +606,13 @@ function Wait_EndOfChanges {
     StatusFile_GetStatus "$fileStatus"
     ReadFile "$fileStatus"
 
-    while $(StatusFile_GetStatus "$fileStatus"); do
+    while $keepWaiting; do
 
     Entitle "4"
 
     StatusFile_WriteStatus false "$fileStatus"
     sleep $waitTime
+    keepWaiting=$(StatusFile_GetStatus "$fileStatus")
     done
 
     Entitle "5"
