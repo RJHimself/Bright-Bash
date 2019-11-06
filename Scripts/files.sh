@@ -592,5 +592,5 @@ function Wait_EndOfChanges {
     sleep $waitTime
     done
 
-    # There were No changes for this Amount of Time $waitTime
+    # There were No changes for this Amount of Time: $waitTime
 }
