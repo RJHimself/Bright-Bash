@@ -32,34 +32,35 @@ function ExeOnDir {
 function TempFolder { echo "$(mktemp -d)"; }
 function TempFile { echo "$(mktemp)"; }
 function StatusFile {
-    local status="$(IfTrimNotEmpty "$1" "true")"
+    local statusBool="$(IfTrimNotEmpty "$1" "true")"
     local file="$(IfTrimNotEmpty "$2" "$(TempFile)")"
+    file="$(SwitchDirSymbols_File "$file")"
 
-    StatusFile_WriteStatus "$file" "$status";
+    StatusFile_WriteStatus "$statusBool" "$file";
 
     echo "$file"
 }
 function StatusFile_GetStatus {
-    local file="$(Trim "$1")"
-    local status
+    local file="$(SwitchDirSymbols_File "$1")"
+    local statusBool
 
     if $(FileNotExists "$file"); then return; fi
 
-    status="$(ReadFile "$file")"
-    status="$(SmlCutLines_Empty "$status")"
-    status="$(Trim "$status")"
-    status="$(LCase "$status")"
+    statusBool="$(ReadFile "$file")"
+    statusBool="$(SmlCutLines_Empty "$statusBool")"
+    statusBool="$(Trim "$statusBool")"
+    statusBool="$(LCase "$statusBool")"
 
-    [[ "$status" == "true" ]] && echo true || echo false
+    [[ "$statusBool" == "true" ]] && echo true || echo false
 }
 function StatusFile_WriteStatus {
-    local status="$(LCase "$(IfTrimNotEmpty "$1" "true")")"
-    local file="$(Trim "$2")"
+    local statusBool="$(LCase "$(IfTrimNotEmpty "$1" "true")")"
+    local file="$(SwitchDirSymbols_File "$2")"
 
     if $(FileNotExists "$file"); then return; fi
-    if [[ "$status" != "true" ]] && [[ "$status" != "false" ]]; then status="true"; fi
+    if [[ "$statusBool" != "true" ]] && [[ "$statusBool" != "false" ]]; then statusBool="true"; fi
 
-    WriteFile "$file" "$status";
+    WriteFile "$file" "$statusBool";
 }
 
 
@@ -577,20 +578,44 @@ function Wait_EndOfChanges {
 
     local waitTime=$(IfTrimNotEmpty "$1" "30")
     local folder="$(IfTrimNotEmpty "$2" "$PWD")"
+    folder="$(SwitchDirSymbols_Folder "$folder")"
 
     local fileOnChange="$(TempFile)"
     local fileStatus="$(StatusFile true)"
-    local onChangeCode="onchange \"$folder/**/*\" -- echo \"true\" > \"$fileStatus\""
+    local onChangeCode="onchange \"$folder**/*\" -- echo \"true\" > \"$fileStatus\""
 
 
+    Entitle "
+    fileOnChange: $fileOnChange
+    fileStatus: $fileStatus
+    "
+
+
+    Entitle "2"
     WriteFile "$fileOnChange" "$onChangeCode"
-    source "$fileOnChange"
+    echo "fileOnChange:"
+    ReadFile "$fileOnChange"
+    source "$fileOnChange" &
 
+    Entitle "3"
+
+    StatusFile_GetStatus "$fileStatus"
+    echo "ReadFile '$fileStatus'"
+    ReadFile "$fileStatus"
 
     while $(StatusFile_GetStatus "$fileStatus"); do
+
+    Entitle "4"
+
     StatusFile_WriteStatus false "$fileStatus"
     sleep $waitTime
     done
 
+    Entitle "5"
+
+    # Removing Temp Data
+    pkill -f "$fileOnChange"
+    sudo rm -f "$fileOnChange"
+    # sudo rm -f "$fileStatus"
     # There were No changes for this Amount of Time: $waitTime
 }
