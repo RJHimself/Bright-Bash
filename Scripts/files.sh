@@ -581,45 +581,32 @@ function Wait_EndOfChanges {
     local folder="$(IfTrimNotEmpty "$2" "$PWD")"
     folder="$(SwitchDirSymbols_Folder "$folder")"
 
-    local folderProcess="$folder**/*"
-    local fileOnChange="$(TempFile)"
     local fileStatus="$(StatusFile true)"
-    local onChangeCode="onchange \"$folderProcess\" -- echo \"true\" > \"$fileStatus\""
     local keepWaiting=true
 
 
-    Entitle "
-    fileOnChange: $fileOnChange
-    fileStatus: $fileStatus
-    "
+    Entitle "fileStatus: $fileStatus"
+    echo "StatusFile_GetStatus: $(StatusFile_GetStatus "$fileStatus")"
 
-
-    Entitle "2"
-    WriteFile "$fileOnChange" "$onChangeCode"
-    echo "fileOnChange:"
-    ReadFile "$fileOnChange"
-    eval "source \"$fileOnChange\" &"
-
-    Entitle "3"
-
-    echo "StatusFile_GetStatus '$fileStatus'"
-    StatusFile_GetStatus "$fileStatus"
-    ReadFile "$fileStatus"
+    onchange "$folder**/*" -- echo "true" > "$fileStatus" &
 
     while $keepWaiting; do
 
     Entitle "4"
 
-    StatusFile_WriteStatus false "$fileStatus"
+    # StatusFile_WriteStatus false "$fileStatus"
+    # echo "false" > "$fileStatus"
+
+    Entitle "keepWaiting: $keepWaiting"
     sleep $waitTime
     keepWaiting=$(StatusFile_GetStatus "$fileStatus")
+
+    Entitle "keepWaiting: $keepWaiting"
+    Entitle "5"
     done
 
-    Entitle "5"
 
     # # Removing Temp Data
-    # pkill -f "$fileOnChange"
-    # sudo rm -f "$fileOnChange"
     # sudo rm -f "$fileStatus"
     # # There were No changes for this Amount of Time: $waitTime
 }
