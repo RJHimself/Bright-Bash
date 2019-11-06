@@ -35,7 +35,7 @@ function StatusFile {
     local status="$(IfTrimNotEmpty "$1" "true")"
     local file="$(IfTrimNotEmpty "$2" "$(TempFile)")"
 
-    WriteFile "$file" "$status";
+    StatusFile_WriteStatus "$file" "$status";
 
     echo "$file"
 }
