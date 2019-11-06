@@ -538,3 +538,28 @@ function TransferFiles {
     fi
     sudo chmod "$fromDirPermissions" "$target"
 }
+
+
+function Wait_EndOfChanges {
+    local waitTime=$(Trim "$1")
+    local folder="$(Trim "$2")"
+
+    local fileOnChange="$(TempFile)"
+    local fileStatus="$(TempFile)"
+    local changed="true"
+    local onChangeCode="onchange \"$folder/**/*\" -- echo \"true\" > \"$fileStatus\""
+
+
+    echo "$onChangeCode" > "$fileOnChange"
+
+    sudo su -c "echo \"true\" > \"$fileStatus\""
+    sudo chmod 777 "$fileStatus"
+    source "$fileOnChange"
+
+
+    while [[ $changed == "true" ]]; do
+    sleep $waitTime
+    done
+
+    # There were No changes for this Amount of Time $waitTime
+}
