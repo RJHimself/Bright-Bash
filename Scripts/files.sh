@@ -609,7 +609,7 @@ function Wait_EndOfChanges {
 
     Entitle "4"
 
-    # StatusFile_WriteStatus false "$fileStatus"
+    StatusFile_WriteStatus false "$fileStatus"
     sleep $waitTime
     done
 
