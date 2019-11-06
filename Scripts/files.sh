@@ -52,8 +52,7 @@ function StatusFile_GetStatus {
     statusBool="$(Trim "$statusBool")"
     statusBool="$(LCase "$statusBool")"
 
-    [[ "$statusBool" == "true" ]] && echo true
-    [[ "$statusBool" == "false" ]] && echo false
+    [[ "$statusBool" == "true" ]] && echo true || echo false
 }
 function StatusFile_WriteStatus {
     local statusBool="$(LCase "$(IfTrimNotEmpty "$1" "true")")"
