@@ -31,6 +31,36 @@ function ExeOnDir {
 
 function TempFolder { echo "$(mktemp -d)"; }
 function TempFile { echo "$(mktemp)"; }
+function StatusFile {
+    local status="$(IfTrimNotEmpty "$1" "true")"
+    local file="$(IfTrimNotEmpty "$2" "$(TempFile)")"
+
+    WriteFile "$file" "$status";
+
+    echo "$file"
+}
+function StatusFile_GetStatus {
+    local file="$(Trim "$1")"
+    local status
+
+    if $(FileNotExists "$file"); then return; fi
+
+    status="$(ReadFile "$file")"
+    status="$(SmlCutLines_Empty "$status")"
+    status="$(Trim "$status")"
+    status="$(LCase "$status")"
+
+    [[ "$status" == "true" ]] && echo true || echo false
+}
+function StatusFile_WriteStatus {
+    local status="$(LCase "$(IfTrimNotEmpty "$1" "true")")"
+    local file="$(Trim "$2")"
+
+    if $(FileNotExists "$file"); then return; fi
+    if [[ "$status" != "true" ]] && [[ "$status" != "false" ]]; then status="true"; fi
+
+    WriteFile "$file" "$status";
+}
 
 
 function CountArguments { echo "$#"; }
@@ -541,23 +571,24 @@ function TransferFiles {
 
 
 function Wait_EndOfChanges {
-    local waitTime=$(Trim "$1")
-    local folder="$(Trim "$2")"
+    # EXAMPLE: Waiting
+    # Wait_EndOfChanges 300
+
+
+    local waitTime=$(IfTrimNotEmpty "$1" "300")
+    local folder="$(IfTrimNotEmpty "$2" "$PWD")"
 
     local fileOnChange="$(TempFile)"
-    local fileStatus="$(TempFile)"
-    local changed="true"
+    local fileStatus="$(StatusFile true)"
     local onChangeCode="onchange \"$folder/**/*\" -- echo \"true\" > \"$fileStatus\""
 
 
-    echo "$onChangeCode" > "$fileOnChange"
-
-    sudo su -c "echo \"true\" > \"$fileStatus\""
-    sudo chmod 777 "$fileStatus"
+    WriteFile "$fileOnChange" "$onChangeCode"
     source "$fileOnChange"
 
 
-    while [[ $changed == "true" ]]; do
+    while $(StatusFile_GetStatus "$fileStatus"); do
+    StatusFile_WriteStatus false "$fileStatus"
     sleep $waitTime
     done
 
