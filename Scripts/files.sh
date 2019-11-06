@@ -571,11 +571,11 @@ function TransferFiles {
 
 
 function Wait_EndOfChanges {
-    # EXAMPLE: Waiting
+    # EXAMPLE: Waiting 5 Min / 30 Seconds to end this Changes
     # Wait_EndOfChanges 300
 
 
-    local waitTime=$(IfTrimNotEmpty "$1" "300")
+    local waitTime=$(IfTrimNotEmpty "$1" "30")
     local folder="$(IfTrimNotEmpty "$2" "$PWD")"
 
     local fileOnChange="$(TempFile)"
