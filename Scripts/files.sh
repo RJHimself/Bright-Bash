@@ -48,6 +48,7 @@ function StatusFile_GetStatus {
 
     statusBool="$(ReadFile "$file")"
     statusBool="$(SmlCutLines_Empty "$statusBool")"
+    statusBool="$(SmlGetLine_First "$statusBool")"
     statusBool="$(Trim "$statusBool")"
     statusBool="$(LCase "$statusBool")"
 
