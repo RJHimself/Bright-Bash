@@ -581,9 +581,10 @@ function Wait_EndOfChanges {
     local folder="$(IfTrimNotEmpty "$2" "$PWD")"
     folder="$(SwitchDirSymbols_Folder "$folder")"
 
+    local folderProcess="$folder**/*"
     local fileOnChange="$(TempFile)"
     local fileStatus="$(StatusFile true)"
-    local onChangeCode="onchange \"$folder**/*\" -- echo \"true\" > \"$fileStatus\""
+    local onChangeCode="onchange \"$folderProcess\" -- echo \"true\" > \"$fileStatus\""
 
 
     Entitle "
