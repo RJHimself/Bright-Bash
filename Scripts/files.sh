@@ -593,19 +593,9 @@ function Wait_EndOfChanges {
     StatusFile_WriteStatus "true" "$fileStatus"
 
     while $keepWaiting; do
-    Entitle "
-        4
-        keepWaiting: $keepWaiting
-    "
-
-    StatusFile_WriteStatus "false" "$fileStatus"
-    sleep $waitTime
-    keepWaiting=$(StatusFile_GetStatus "$fileStatus")
-
-    Entitle "
-        keepWaiting: $keepWaiting
-        5
-    "
+        StatusFile_WriteStatus "false" "$fileStatus"
+        sleep $waitTime
+        keepWaiting=$(StatusFile_GetStatus "$fileStatus")
     done
 
 
