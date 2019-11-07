@@ -439,3 +439,7 @@ function InjectLib {
     if $(ShellLacksLib "$shell"); then AddCodeBlock_Bottom "$shell" "source \"\$HOME/bin/$LibName\"" "$LibName"; fi
     done <<< "$allShellFiles"
 }
+
+
+function GetProcessesPID { local processName="$(Trim "$1")"; ps -ef | grep $processName | awk '{print $2}'; }
+function KillProcessesPID  { SmlExecute "kill" "$(GetProcessesPID "$1")"; }
