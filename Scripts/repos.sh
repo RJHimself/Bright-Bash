@@ -5,6 +5,9 @@ function git-changes-tree { ExeOnDir "git tree" "$@"; }
 
 
 function FindLink {
+    # # EXAMPLE
+    # FindLink "https://sites.google.com/a/chromium.org/chromedriver/" "https://chromedriver.storage.googleapis.com.*"
+
     local whereToSearch="$(Trim "$1")"
     local linkToFind="$(Trim "$2")"
 
