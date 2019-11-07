@@ -44,7 +44,7 @@ function StatusFile_GetStatus {
     local file="$(SwitchDirSymbols_File "$1")"
     local statusBool
 
-    if $(FileNotExists "$file"); then return; fi
+    if $(FileNotExists "$file"); then echo false; return; fi
 
     statusBool="$(ReadFile "$file")"
     statusBool="$(SmlCutLines_Empty "$statusBool")"
