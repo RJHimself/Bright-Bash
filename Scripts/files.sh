@@ -589,23 +589,15 @@ function Wait_EndOfChanges {
     local keepWaiting=true
 
 
-    Entitle "fileStatus: $fileStatus"
-    echo "StatusFile_GetStatus: $(StatusFile_GetStatus "$fileStatus")"
-
-    # onchange "$folder**/*" -- echo $(StatusFile_WriteStatus true "$fileStatus") &
     onchange "$folder**/*" -- sed -i "1 s/^.*$/true/" "$fileStatus" &
     StatusFile_WriteStatus "true" "$fileStatus"
 
     while $keepWaiting; do
 
     Entitle "4"
+    Entitle "keepWaiting: $keepWaiting"
 
     StatusFile_WriteStatus "false" "$fileStatus"
-    # sudo rm -f "$fileStatus"
-    # echo "false" > "$fileStatus"
-    # StatusFile_WriteStatus false "$fileStatus"
-
-    Entitle "keepWaiting: $keepWaiting"
     sleep $waitTime
     keepWaiting=$(StatusFile_GetStatus "$fileStatus")
 
