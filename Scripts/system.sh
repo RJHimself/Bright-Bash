@@ -442,4 +442,10 @@ function InjectLib {
 
 
 function GetProcessesPID { local processName="$(Trim "$1")"; ps -ef | grep $processName | awk '{print $2}'; }
-function KillProcessesPID  { SmlExecute "kill" "$(GetProcessesPID "$1")"; }
+function KillProcessesPID  {
+    local processPIDs="$(GetProcessesPID "$1")"
+
+    while IFS= read -r processPid; do
+    kill $processPid
+    done <<< "$processPIDs"
+}
