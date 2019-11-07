@@ -18,8 +18,8 @@ function GetVersion {
 
     local strEnglobber="$(Trim "$1")"
     local versionIndex="$(IndexOf_Lowest "$strEnglobber" 1 2 3 4 5 6 7 8 9 0)"
-    local currentIndex=0
-    local currentChar
+    local currentIndex=$versionIndex
+    local currentChar="$(GetChar $currentIndex "$strEnglobber")"
     local finalVersion
 
 
