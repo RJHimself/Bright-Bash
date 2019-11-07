@@ -612,5 +612,5 @@ function Wait_EndOfChanges {
     # Removing Temp Data
     KillProcessesPID "onchange"
     sudo rm -f "$fileStatus"
-    # # There were No changes for this Amount of Time: $waitTime
+    # There were No changes for this Amount of Time: $waitTime
 }
