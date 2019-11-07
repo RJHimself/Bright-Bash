@@ -30,6 +30,7 @@ function GetVersion {
         let "currentIndex++"
     done
 
+    [[ $(Left 1 "$finalVersion") == "." ]] && finalVersion="$(Exclude_First 1 "$finalVersion")"
     [[ $(Right 1 "$finalVersion") == "." ]] && finalVersion="$(Exclude_Last 1 "$finalVersion")"
 
 
