@@ -172,6 +172,10 @@ function LacksAny {
 function IsWord { [[ "$1" == "$2" ]] && echo true || echo false; }
 function IsNotWord { $(IsWord "$@") && echo false || echo true; }
 
+function IsChar { IsWord "$@"; }
+function IsNotChar { $(IsChar "$@") && echo false || echo true; }
+
+
 function IsAny {
     local strEnglobber="$1"
 
@@ -350,7 +354,6 @@ function Replace {
 
     $(Contains "$strToFind" "$strEnglobber") && echo "$finalResult" || echo "$strEnglobber"
 }
-
 function ReplaceChar {
     local strToFind="$1"
     local strReplacer="$2"
@@ -360,4 +363,12 @@ function ReplaceChar {
 
 
     echo "$finalResult"
+}
+
+
+function GetChar {
+    local index=$(Trim "$1")
+    local strEnglobber="$2"
+
+    echo "${strEnglobber: $index:1}"
 }
