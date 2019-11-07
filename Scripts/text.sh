@@ -49,9 +49,9 @@ function MidToEnd {
 }
 
 function MidToEnd_ByString {
-    local strAfter="$(Trim "$1")"
+    local strBefore="$(Trim "$1")"
     local strEnglobber="$(Trim "$2")"
-    local indexOfAfter="$(IndexOf "$strAfter" "$strEnglobber")"
+    local indexOfAfter="$(($(Length "$strBefore") + $(IndexOf "$strBefore" "$strEnglobber")))"
     local textAfter="$(MidToEnd $indexOfAfter "$strEnglobber")"
 
     echo "$textAfter"
