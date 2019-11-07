@@ -7,7 +7,12 @@ function IsNumber {
 }
 
 
-function GetVersion {}
+function GetVersion {
+    local strEnglobber="$(Trim "$1")"
+    local versionIndex="$(IndexOf_Lowest "$strEnglobber" 1 2 3 4 5 6 7 8 9 0)"
+
+    
+}
 
 
 function Sort { echo "$(SmlCutLines_Empty "$1")" | sort; }
