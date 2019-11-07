@@ -279,6 +279,26 @@ function IndexOfOccur {
 
     echo $(SmlGetLine $occurrTime "$(IndexOfOccurrences "$strToFind" "$strEnglober")")
 }
+function IndexOf_Multiple {
+    local strEnglobber="$1"
+    local indexes
+
+    for toFind in "${@: 2}"; do
+    indexes="$indexes"$'\n'"$(IndexOf "$toFind" "$strEnglobber")"
+    done
+    indexes="$(SmlCutLines_Empty "$indexes")"
+
+    echo "$indexes"
+}
+function IndexOf_Lowest {
+    local indexes="$(IndexOf_Multiple "$@")"
+    local lowestIndex
+
+    indexes="$(Sort "$indexes")"
+    lowestIndex="$(Trim "$(SmlGetLine_First "$indexes")")"
+
+    echo "$lowestIndex"
+}
 
 
 function ListBeforeIndexesOf {

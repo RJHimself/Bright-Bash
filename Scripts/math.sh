@@ -8,3 +8,7 @@ function IsNumber {
 
 
 function GetVersion {}
+
+
+function Sort { echo "$(SmlCutLines_Empty "$1")" | sort; }
+function SortVersion { echo "$(SmlCutLines_Empty "$1")" | sort --version-sort; }
