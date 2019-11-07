@@ -4,6 +4,19 @@ function git-history-tree { ExeOnDir "git log --graph --oneline --all" "$@"; }
 function git-changes-tree { ExeOnDir "git tree" "$@"; }
 
 
+function FindLink {
+    local whereToSearch="$(Trim "$1")"
+    local linkToFind="$(Trim "$2")"
+
+    local pageCode="$(Trim "$(curl -s "$whereToSearch" | grep -o "$linkToFind")")"
+    local linkFound
+
+    pageCode="$(SmlSplit " " "$pageCode")"
+    linkFound="$(Trim "$(SmlGetLine_First "$pageCode")")"
+
+    echo "$linkFound"
+}
+function LinkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
 function LastestReleaseLink { echo "https://api.github.com/repos/$1/$2/releases/latest"; }
 function GhRelease { curl -s "$1" | grep -o "$2"; }
 
@@ -122,6 +135,3 @@ function GitRestartTest {
     sudo git commit -m "Initial Commit"
     cd "$oldDir"
 }
-
-
-function LinkToFind { echo "http.*${3:-$1}.*${3:-$2}"; }
