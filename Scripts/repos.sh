@@ -16,6 +16,7 @@ function FindLink {
 
     pageCode="$(SmlSplit " " "$pageCode")"
     linkFound="$(Trim "$(SmlGetLine_First "$pageCode")")"
+    [[ $(Right 1 "$linkFound") == '"' ]] && linkFound="${linkFound: 0:-1}"
 
     echo "$linkFound"
 }
