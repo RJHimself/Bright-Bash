@@ -327,15 +327,6 @@ function ReplaceLine {
     DeleteLine "$lineIndex" "$file"
     AddLine "$lineIndex" "$lineContent" "$file"
 }
-function ReplaceLine_ByString {
-    local strToFind=$(Trim "$1")
-    local lineContent="$(Trim "$2")"
-    local file="$(Trim "$3")"
-
-    local lineIndex="$(SmlIndexOf "$strToFind" "$(ReadFile "$file")")"
-
-    ReplaceLine "$lineIndex" "$lineContent" "$file";
-}
 
 function AddLine {
     local lineIndex="$((1 + $(Trim "$1")))"
@@ -366,6 +357,19 @@ function DeleteLinesFrom {
 
     sed -i -e "$start,$end""d" "$file"
 }
+
+
+function AddLine_First { AddLine 0 "$@"; }
+function ReplaceLine_ByString {
+    local strToFind=$(Trim "$1")
+    local lineContent="$(Trim "$2")"
+    local file="$(Trim "$3")"
+
+    local lineIndex="$(SmlIndexOf "$strToFind" "$(ReadFile "$file")")"
+
+    ReplaceLine "$lineIndex" "$lineContent" "$file";
+}
+function ReplaceLine_First { ReplaceLine 0 "$@"; }
 
 
 function GetFileTypeLong { file --mime-type -b "$1"; }
@@ -588,14 +592,18 @@ function Wait_EndOfChanges {
     Entitle "fileStatus: $fileStatus"
     echo "StatusFile_GetStatus: $(StatusFile_GetStatus "$fileStatus")"
 
-    onchange "$folder**/*" -- echo "true" > "$fileStatus" &
+    # onchange "$folder**/*" -- echo $(StatusFile_WriteStatus true "$fileStatus") &
+    onchange "$folder**/*" -- sed -i "1 s/^.*$/true/" "$fileStatus" &
+    StatusFile_WriteStatus "true" "$fileStatus"
 
     while $keepWaiting; do
 
     Entitle "4"
 
-    # StatusFile_WriteStatus false "$fileStatus"
+    StatusFile_WriteStatus "false" "$fileStatus"
+    # sudo rm -f "$fileStatus"
     # echo "false" > "$fileStatus"
+    # StatusFile_WriteStatus false "$fileStatus"
 
     Entitle "keepWaiting: $keepWaiting"
     sleep $waitTime
