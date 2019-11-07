@@ -285,6 +285,17 @@ function MkExecutable_AllDir {
 }
 
 
+function ExecFile {
+    local file="$(Trim "$1")"
+    local permissions="$(GetPermissions "$file")"
+
+
+    sudo chmod +x "$file"
+    sudo chmod $permissions "$file"
+    "$file"
+}
+
+
 function ChangePermissions_AllDir {
     local permissions="$1"
     local dir="$2"
