@@ -11,7 +11,7 @@ function FindLink {
     local whereToSearch="$(Trim "$1")"
     local linkToFind="$(Trim "$2")"
 
-    local pageCode="$(Trim "$(curl -s "$whereToSearch" | grep -o "$linkToFind")")"
+    local pageCode="$(Trim "$(GetPageHtml "$whereToSearch" | grep -o "$linkToFind")")"
     local linkFound
 
     pageCode="$(SmlSplit " " "$pageCode")"
@@ -138,3 +138,6 @@ function GitRestartTest {
     sudo git commit -m "Initial Commit"
     cd "$oldDir"
 }
+
+
+function GetPageHtml { curl -s "$(Trim "$1")"; }
