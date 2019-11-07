@@ -11,6 +11,9 @@ function TrimAll { echo "$(echo -e "${FOO}" | tr -d '[:space:]')"; }
 function Reverse { echo "$1" | rev; }
 
 
+function TextAfter { MidToEnd_ByString "$@"; }
+
+
 function Left {
     local length="$1"
     local string="$2"
@@ -32,13 +35,26 @@ function Mid {
 }
 
 
-function AddToEnd_IfNotContains {
-    local strToFind="$1"
-    local strEnglobber="$2"
+function MidToStart {
+    local length="$1"
+    local string="$2"
 
-    [[ $(Right $(Length "$strToFind") "$strEnglobber") != "$strToFind" ]] && strEnglobber="$strEnglobber""$strToFind"
+    echo "${string: 0:$length}"
+}
+function MidToEnd {
+    local length="$1"
+    local string="$2"
 
-    echo "$strEnglobber"
+    echo "${string: $length}"
+}
+
+function MidToEnd_ByString {
+    local strAfter="$(Trim "$1")"
+    local strEnglobber="$(Trim "$2")"
+    local indexOfAfter="$(IndexOf "$strAfter" "$strEnglobber")"
+    local textAfter="$(MidToEnd $indexOfAfter "$strEnglobber")"
+
+    echo "$textAfter"
 }
 
 
@@ -75,17 +91,13 @@ function Exclude_FirstLast {
 }
 
 
-function MidToStart {
-    local length="$1"
-    local string="$2"
+function AddToEnd_IfNotContains {
+    local strToFind="$1"
+    local strEnglobber="$2"
 
-    echo "${string: 0:$length}"
-}
-function MidToEnd {
-    local length="$1"
-    local string="$2"
+    [[ $(Right $(Length "$strToFind") "$strEnglobber") != "$strToFind" ]] && strEnglobber="$strEnglobber""$strToFind"
 
-    echo "${string: $length}"
+    echo "$strEnglobber"
 }
 
 
