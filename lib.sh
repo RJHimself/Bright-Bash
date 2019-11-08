@@ -37,9 +37,3 @@ InjectLib "
 $HOME/.bashrc
 $HOME/.zshrc
 "
-
-
-# Local Extra Functions & Variables
-LocalExtraLib="$HOME/lib/bash/extra"
-CreateFile_IfNotExists "$LocalExtraLib/lib.sh" "\"$BashScriptHeader\""
-source "$LocalExtraLib/lib.sh"
