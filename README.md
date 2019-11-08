@@ -5,9 +5,9 @@ This is an open source bash library to write scripts with more ease, achieving t
 ## Installation
 
 ```bash
-mkdir "$HOME/lib"
-git clone https://github.com/RJHimself/Bright-Bash "$HOME/lib/bright-bash"
-source "$HOME/lib/bright-bash/lib.sh"
+mkdir -p "$HOME/lib/bash"
+git clone https://github.com/RJHimself/Bright-Bash "$HOME/lib/bash/bright-bash"
+source "$HOME/lib/bash/bright-bash/lib.sh"
 ```
 
 ## Examples
