@@ -17,7 +17,7 @@ function GetVersion {
 
 
     local strEnglobber="$(Trim "$1")"
-    local versionIndex="$(IndexOf_Lowest "$strEnglobber" 1 2 3 4 5 6 7 8 9 0)"
+    local versionIndex="$(GetNumberIndex_First "$strEnglobber")"
     local currentIndex=$versionIndex
     local currentChar="$(GetChar $currentIndex "$strEnglobber")"
     local finalVersion
@@ -36,9 +36,48 @@ function GetVersion {
 
     echo "$finalVersion"
 }
-function GetNumber_First {
-    local strEnglobber="$(Trim "$1")"
-    local versionIndex="$(IndexOf_Lowest "$strEnglobber" 1 2 3 4 5 6 7 8 9 0)"
+# function GetVersion_ByLevel {
+
+# }
+
+
+function GetNumberIndex_First { GetNumberIndexAt_First 0 "$@"; }
+function GetNumberIndexAt_First {
+    local startAt="$(Trim "$1")"
+    local strEnglobber="$(MidToEnd $startAt "$(Trim "$2")")"
+
+    local firstNumberIndex="$(IndexOf_Lowest "$strEnglobber" 1 2 3 4 5 6 7 8 9 0)"
+
+    echo $firstNumberIndex
+}
+function GetNumber { GetNumberAt 0 "$@"; }
+function GetNumberAt {
+    local startAt="$(Trim "$1")"
+    local amount=$(Trim "$2")
+    local strEnglobber="$(MidToEnd $startAt "$(Trim "$3")")"
+
+    local currentIndex=0
+    local currentNumber
+    local currentLength
+
+
+    for (( i=0; i<=$amount; i++ )); do
+        strEnglobber="$(MidToEnd $currentIndex "$(Trim "$strEnglobber")")"
+
+        currentNumber="$(GetNumber_First "$strEnglobber")"
+        currentLength="$(Length "$currentNumber")"
+        currentIndex=$(( $currentLength + $(GetNumberIndex_First "$strEnglobber") ))
+    done
+
+
+    echo $currentNumber
+}
+function GetNumber_First { GetNumberAt_First 0 "$@"; }
+function GetNumberAt_First {
+    local startAt="$(Trim "$1")"
+    local strEnglobber="$(MidToEnd $startAt "$(Trim "$2")")"
+
+    local versionIndex="$(GetNumberIndex_First "$strEnglobber")"
     local currentIndex=$versionIndex
     local currentChar="$(GetChar $currentIndex "$strEnglobber")"
     local finalVersion
