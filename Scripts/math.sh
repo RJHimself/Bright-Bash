@@ -17,6 +17,7 @@ function GetVersion {
 
 
     local strEnglobber="$(Trim "$1")"
+
     local versionIndex="$(GetNumberIndex_First "$strEnglobber")"
     local currentIndex=$versionIndex
     local currentChar="$(GetChar $currentIndex "$strEnglobber")"
@@ -36,9 +37,13 @@ function GetVersion {
 
     echo "$finalVersion"
 }
-# function GetVersion_ByLevel {
+function GetVersion_ByLevel {
+    local versionLevel="$(Trim "$1")"
+    local fullVersion="$(GetVersion "$2")"
+    local finalVersion="$(GetNumber $versionLevel "$strEnglobber")"
 
-# }
+    echo "$finalVersion"
+}
 
 
 function GetNumberIndex_First { GetNumberIndexAt_First 0 "$@"; }
