@@ -40,10 +40,20 @@ function GetVersion {
 function GetVersion_ByLevel {
     local versionLevel="$(Trim "$1")"
     local fullVersion="$(GetVersion "$2")"
+
     local finalVersion="$(GetNumber $versionLevel "$fullVersion")"
 
     echo "$finalVersion"
 }
+function GetVersion_Macro { GetVersion_ByLevel_Macro "$@"; }
+function GetVersion_ByLevel_Macro { GetVersion_ByLevel 0 "$@"; }
+function GetVersion_Major { GetVersion_ByLevel_Macro "$@"; }
+function GetVersion_ByLevel_Major { GetVersion_ByLevel 1 "$@"; }
+
+function GetVersion_Minor { GetVersion_ByLevel_Macro "$@"; }
+function GetVersion_ByLevel_Minor { GetVersion_ByLevel 2 "$@"; }
+function GetVersion_Micro { GetVersion_ByLevel_Macro "$@"; }
+function GetVersion_ByLevel_Micro { GetVersion_ByLevel 3 "$@"; }
 
 
 function GetNumberIndex_First { GetNumberIndexAt_First 0 "$@"; }
