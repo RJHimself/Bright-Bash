@@ -1,3 +1,6 @@
+function ListPackagesLike { apt-cache search --names-only ".*$(Trim "$1").*"; }
+
+
 function AddPkg_GhDebRelease {
     set -e
     loc="$(mktemp).deb"
