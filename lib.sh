@@ -6,8 +6,6 @@ BashLibPath="$HOME/bin/$LibName"
 DIR=""
 LibFullPath=""
 
-LocalExtraLib="$HOME/lib/Bash/Extra"
-
 
 # Getting Original Library's Directory
 [[ ! -d "$ExecutablesDir" ]] && mkdir -m 777 "$ExecutablesDir"
@@ -42,5 +40,6 @@ $HOME/.zshrc
 
 
 # Local Extra Functions & Variables
+LocalExtraLib="$HOME/lib/Bash/Extra"
 CreateFile_IfNotExists "$LocalExtraLib/lib.sh" "\"$BashScriptHeader\""
 source "$LocalExtraLib/lib.sh"
