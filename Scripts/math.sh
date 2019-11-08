@@ -24,10 +24,10 @@ function GetVersion {
 
 
     while $(KeepLoadingNumbers); do
-        currentChar="$(GetChar $currentIndex "$strEnglobber")"
         finalVersion="$finalVersion""$currentChar"
 
         let "currentIndex++"
+        currentChar="$(GetChar $currentIndex "$strEnglobber")"
     done
 
     [[ $(Left 1 "$finalVersion") == "." ]] && finalVersion="$(Exclude_First 1 "$finalVersion")"
