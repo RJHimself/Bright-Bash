@@ -123,7 +123,7 @@ function GitPushAll {
 }
 
 
-function GitCloneTo { ExeOnDir "git clone \"$1\"" "$(Trim "$2")"; }
+function GitCloneTo { ExeOnDir "git clone \"$(Trim "$2")\"" "$(Trim "$1")"; }
 
 
 function GitRestartTest {
