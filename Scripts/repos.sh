@@ -142,3 +142,12 @@ function GitRestartTest {
 
 
 function GetPageHtml { curl -s "$(Trim "$1")"; }
+function UrlNotExists { $(UrlExists "$@") && echo false || echo true; }
+function UrlExists {
+    possibleURL="$(Trim "$1")"
+
+    if curl --output /dev/null --silent --head --fail "$possibleURL"
+    then echo true
+    else echo false
+    fi
+}
