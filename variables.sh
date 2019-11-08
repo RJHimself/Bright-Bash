@@ -6,6 +6,7 @@ PathName=".path"
 PathLocation="$PathDir/$PathName"
 
 
+BashLibraries="$HOME/lib/bash"
 BashScriptHeader="#!/bin/bash"
 
 
