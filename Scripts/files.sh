@@ -23,6 +23,7 @@ function ExeOnDir {
 
     $(IsEmpty "$dir") && dir="$PWD"
     dir="$(SwitchDirSymbols_Folder "$dir")"
+    CreateFile_IfNotExists "$dir"
 
 
     eval "cd \"$dir\"; $toExe; cd \"$oldDir\""
