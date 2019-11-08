@@ -45,14 +45,15 @@ function GetVersion_ByLevel {
 
     echo "$finalVersion"
 }
-function GetVersion_Macro { GetVersion_ByLevel 0 "$@"; }
+
+alias GetVersion_Macro=GetVersion_ByLevel_Macro
 function GetVersion_ByLevel_Macro { GetVersion_ByLevel 0 "$@"; }
-function GetVersion_Major { GetVersion_ByLevel 1 "$@"; }
+alias GetVersion_Major=GetVersion_ByLevel_Major
 function GetVersion_ByLevel_Major { GetVersion_ByLevel 1 "$@"; }
 
-function GetVersion_Minor { GetVersion_ByLevel 2 "$@"; }
+alias GetVersion_Minor=GetVersion_ByLevel_Minor
 function GetVersion_ByLevel_Minor { GetVersion_ByLevel 2 "$@"; }
-function GetVersion_Micro { GetVersion_ByLevel 3 "$@"; }
+alias GetVersion_Micro=GetVersion_ByLevel_Micro
 function GetVersion_ByLevel_Micro { GetVersion_ByLevel 3 "$@"; }
 
 
