@@ -40,7 +40,7 @@ function GetVersion {
 function GetVersion_ByLevel {
     local versionLevel="$(Trim "$1")"
     local fullVersion="$(GetVersion "$2")"
-    local finalVersion="$(GetNumber $versionLevel "$strEnglobber")"
+    local finalVersion="$(GetNumber $versionLevel "$fullVersion")"
 
     echo "$finalVersion"
 }
