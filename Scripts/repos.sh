@@ -123,6 +123,9 @@ function GitPushAll {
 }
 
 
+function GitCloneTo { ExeOnDir "git clone \"$1\"" "$(Trim "$2")"; }
+
+
 function GitRestartTest {
     local folder="$(Trim "$1")"
     local oldDir="$PWD"
