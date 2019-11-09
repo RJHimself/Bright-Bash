@@ -35,7 +35,9 @@ function AddToPath {
 
 
     PATH="$NewPath"
-    sudo su -c "PATH="$NewPath""
+    export PATH="$NewPath"
+    sudo su -c "PATH=\"$NewPath\""
+    sudo su -c "export PATH=\"$NewPath\""
 }
 function RefreshPythonPath { AddToPythonPath ""; }
 function AddToPythonPath {
@@ -71,7 +73,9 @@ function AddToPythonPath {
 
 
     PYTHONPATH="$NewPath"
-    sudo su -c "PYTHONPATH="$NewPath""
+    export PYTHONPATH="$NewPath"
+    sudo su -c "PYTHONPATH=\"$NewPath\""
+    sudo su -c "export PYTHONPATH=\"$NewPath\""
 }
 
 
