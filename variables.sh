@@ -7,6 +7,7 @@ PathLocation="$PathDir/$PathName"
 
 
 BashLibraries="$HOME/lib/bash"
+PythonLibraries="$HOME/lib/python"
 BashScriptHeader="#!/bin/bash"
 
 
