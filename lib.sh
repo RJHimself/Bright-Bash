@@ -37,3 +37,8 @@ InjectLib "
 $HOME/.bashrc
 $HOME/.zshrc
 "
+
+
+# Refreshing ALL Paths
+RefreshPath
+RefreshPythonPath

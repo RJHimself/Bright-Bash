@@ -37,6 +37,42 @@ function AddToPath {
     PATH="$NewPath"
     sudo su -c "PATH="$NewPath""
 }
+function RefreshPythonPath { AddToPythonPath ""; }
+function AddToPythonPath {
+    # ------------ Examples ------------
+    # AddToPath "
+    #     /snap/bin
+    #     ~/bin
+    #     ~/lib
+    # "
+
+
+    function ifPathFileExists { $(FileExists "$PythonPathLocation") && echo "$(ReadFile "$PythonPathLocation")" || echo ""; }
+
+
+    local NewPath="$1"
+    local SmlOldPath="$(SmlSplit ":" "$PYTHONPATH")"
+
+
+    NewPath="$NewPath"$'\n'"$(ifPathFileExists)"
+    NewPath="$(SmlCutLines_Empty "$NewPath")"
+    NewPath="$(SmlTrim "$NewPath")"
+
+    NewPath="$(SwitchDirSymbols "$NewPath")"
+    NewPath="$(ListDir "$NewPath" "D")"
+    NewPath="$(SmlCutLines_Empty "$NewPath")"
+    NewPath="$(SmlTrim "$NewPath")"
+
+    NewPath="$(RemoveFolderSlash "$NewPath")"
+    NewPath="$(SmlMerge "$NewPath" "$SmlOldPath")"
+    NewPath="$(SmlCutLines_Empty "$NewPath")"
+    NewPath="$(SmlTrim "$NewPath")"
+    NewPath="$(SmlJoin ":" "$NewPath")"
+
+
+    PYTHONPATH="$NewPath"
+    sudo su -c "PYTHONPATH="$NewPath""
+}
 
 
 function refresh { RefreshShell; }

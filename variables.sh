@@ -4,6 +4,7 @@ nl=$'\n'
 PathDir="$HOME"
 PathName=".path"
 PathLocation="$PathDir/$PathName"
+PythonPathLocation="$HOME/.pythonpath"
 
 
 BashLibraries="$HOME/lib/bash"
