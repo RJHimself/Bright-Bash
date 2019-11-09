@@ -2,6 +2,22 @@ function IsEmpty { if [[ -z "$1" ]]; then echo true; else echo false; fi }
 function IsNotEmpty { if [[ ! -z "$1" ]]; then echo true; else echo false; fi }
 
 
+function IsAnyEmpty {
+    for var in "$@"; do
+    if $(IsEmpty "$var"); then echo true; return; fi
+    done
+
+    echo false
+}
+function IsAnyNotEmpty {
+    for var in "$@"; do
+    if $(IsNotEmpty "$var"); then echo true; return; fi
+    done
+
+    echo false
+}
+
+
 function Trim  { echo "$(echo -e "$1" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"; }
 function LTrim { echo "$(echo -e "$1" | sed -e 's/^[[:space:]]*//')"; }
 function RTrim { echo "$(echo -e "$1" | sed -e 's/[[:space:]]*$//')"; }
