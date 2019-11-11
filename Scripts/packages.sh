@@ -145,7 +145,7 @@ function download_gnome_extension {
     extensions_folder="$(TempFolder)"
 
 
-    download_to_folder "$extensions_folder" "https://extensions.gnome.org/extension-data/user-theme%40gnome-shell-extensions.gcampax.github.com.v3.shell-extension.zip"
+    download_to_folder "$extensions_folder" "$extension_link"
 }
 
 
