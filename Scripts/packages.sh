@@ -142,7 +142,7 @@ function AddPkg_Snap {
 
 function download_gnome_extension {
     extension_link="$(Trim "$1")"
-    extensions_folder="$(TempFolder)"
+    extensions_folder="$(IfTrimNotEmpty "$2" "$HOME/Downloads")"
 
 
     download_to_folder "$extensions_folder" "$extension_link"
