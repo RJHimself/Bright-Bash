@@ -143,9 +143,9 @@ function AddPkg_Snap {
 function download_gnome_extension {
     function get_corrent_link {
         local link="$(Replace "%40" "" "$(Trim "$1")")"
+
         local extension_index="$((1+$(IndexOf_Last "/" "$link")))"
         link="$(MidToEnd $extension_index "$link")"
-
         local link_length=$(Length "$link")
         local link_fixed_url="https://extensions.gnome.org/extension-data/"
 
@@ -164,6 +164,11 @@ function download_gnome_extension {
 
 
     local extension_link="$(Trim "$1")"
+    local extension_version
+    # Switching the Extension's Version
+    extension_link="$(echo "$extension_link" | sed "s/\.v[0-9]*\./.v$extension_version./g")"
+
+
     local extensions_folder="$(IfTrimNotEmpty "$2" "$HOME/Downloads")"
     extensions_folder="$(SwitchDirSymbols_Folder "$extensions_folder")"
 
