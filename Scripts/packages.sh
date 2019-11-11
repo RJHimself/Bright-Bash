@@ -141,8 +141,31 @@ function AddPkg_Snap {
 
 
 function download_gnome_extension {
-    extension_link="$(Trim "$1")"
-    extensions_folder="$(IfTrimNotEmpty "$2" "$HOME/Downloads")"
+    function get_corrent_link {
+        local link="$(Replace "%40" "" "$(Trim "$1")")"
+        local link_length=$(Length "$link")
+
+
+        for (( i=0; i<$link_length; i++ )); do
+            local left_side="$(Left $i "$link")"
+            local right_side="$(Right $(($link_length-$i)) "$link")"
+            local new_url="$left_side""%40""$left_side"
+
+            if $(UrlExists "$new_url"); then echo "$new_url"; return; fi
+        done
+
+
+        return
+    }
+
+
+    local extension_link="$(Trim "$1")"
+    local extensions_folder="$(IfTrimNotEmpty "$2" "$HOME/Downloads")"
+
+
+    # %40 is used on most of these gnome extensions to download'em
+    $(UrlNotExists "$extension_link") && extension_link="$(get_corrent_link "$extension_link")"
+    if $(IsEmpty "$extension_link"); then echo "Returning due to wrong Link"; return; fi
 
 
     download_to_folder "$extensions_folder" "$extension_link"
