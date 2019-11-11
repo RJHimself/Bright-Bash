@@ -140,6 +140,15 @@ function AddPkg_Snap {
 }
 
 
+function download_gnome_extension {
+    extension_link="$(Trim "$1")"
+    extensions_folder="$(TempFolder)"
+
+
+    download_to_folder "$extensions_folder" "https://extensions.gnome.org/extension-data/user-theme%40gnome-shell-extensions.gcampax.github.com.v3.shell-extension.zip"
+}
+
+
 function UpdatePkg_apt {
     # Update Package Availability Database
     sudo apt update

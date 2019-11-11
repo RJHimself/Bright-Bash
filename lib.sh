@@ -24,6 +24,7 @@ sudo ln -sf "$LibFullPath" "$BashLibPath"
 
 
 source "$DIR/variables.sh"
+source "$DIR/extra-aliases.sh"
 
 
 # Sources Every File inside "./Scripts"
