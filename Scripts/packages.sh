@@ -140,6 +140,16 @@ function AddPkg_Snap {
 }
 
 
+function get_shell_versions {
+    local link="$(Trim "$1")"
+    python -c "system_wide.linux.desktops.gnome.extensions import *; get_shell_versions"
+}
+function get_extension_versions {
+    local link="$(Trim "$1")"
+    python -c "system_wide.linux.desktops.gnome.extensions import *; get_extension_versions"
+}
+
+
 function download_gnome_extension {
     function get_corrent_link {
         local link="$(Replace "%40" "" "$(Trim "$1")")"
