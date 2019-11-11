@@ -143,13 +143,17 @@ function AddPkg_Snap {
 function download_gnome_extension {
     function get_corrent_link {
         local link="$(Replace "%40" "" "$(Trim "$1")")"
+        local extension_index="$((1+$(IndexOf_Last "/" "$link")))"
+        link="$(MidToEnd $extension_index "$link")"
+
         local link_length=$(Length "$link")
+        local link_fixed_url="https://extensions.gnome.org/extension-data/"
 
 
         for (( i=0; i<$link_length; i++ )); do
             local left_side="$(Left $i "$link")"
             local right_side="$(Right $(($link_length-$i)) "$link")"
-            local new_url="$left_side""%40""$left_side"
+            local new_url="$link_fixed_url""$left_side""%40""$left_side"
 
             if $(UrlExists "$new_url"); then echo "$new_url"; return; fi
         done
@@ -161,6 +165,7 @@ function download_gnome_extension {
 
     local extension_link="$(Trim "$1")"
     local extensions_folder="$(IfTrimNotEmpty "$2" "$HOME/Downloads")"
+    extensions_folder="$(SwitchDirSymbols_Folder "$extensions_folder")"
 
 
     # %40 is used on most of these gnome extensions to download'em
