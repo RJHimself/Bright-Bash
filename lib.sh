@@ -21,6 +21,7 @@ DIR="$(dirname "$LibFullPath")"
 
 # Creating the "$HOME/bin/bright-bash" LINK
 sudo ln -sf "$LibFullPath" "$BashLibPath"
+sudo chmod 777 "$BashLibPath"
 
 
 source "$DIR/variables.sh"
