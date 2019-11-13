@@ -19,3 +19,7 @@ function IsUpload { [[ "$(FirstUCase "$1")" == "U" ]] && echo true || echo false
 function IsNotDownloadOrUpload { $(IsDownloadOrUpload "$1") && echo false || echo true; }
 function IsNotDownload { $(IsDownload "$1") && echo false || echo true; }
 function IsNotUpload { $(IsUpload "$1") && echo false || echo true; }
+
+
+function IsRecursive { [[ "$(FirstUCase "$1")" == "R" ]] && echo true || echo false; }
+function IsNotRecursive { $(IsRecursive "$@") && echo false || echo true; }

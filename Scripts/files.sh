@@ -272,6 +272,8 @@ function ListDir {
 
     local tmpDir="$(SwitchDirSymbols "$(Trim "$1")")"
     local objType="$(LCase "$(Left 1 "$(Trim "$2")")")"
+    local recursive="$3"
+
     local depth=0
     local list
 
@@ -296,7 +298,7 @@ function ListDir {
     else depth=0; finalPath="$tmpDir"
     fi
     # finalType Result
-    $hasType && finalType=" -type $objType "
+    $hasType && finalType=" $($(IsRecursive "$recursive") && echo "-xtype $objType" || echo "-type $objType") "
     # finalDepth Result
     $hasLimit && finalDepth=" -maxdepth $depth "
 
@@ -306,7 +308,7 @@ function ListDir {
 
     # Final Result
     #? Sudo / Admin / Root Support
-    if $(IsAdmin); then list="$(sudo find "$finalPath" $(Trim "$finalDepth") $(Trim "$finalType"))"
+    if $(IsAdmin); then list="$(sudo find $(if $(IsRecursive "$recursive"); then echo "-L"; fi;) "$finalPath" $(Trim "$finalDepth") $(Trim "$finalType"))"
     else list="$(find "$finalPath" $(Trim "$finalDepth") $(Trim "$finalType"))"
     fi
 
