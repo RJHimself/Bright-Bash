@@ -51,6 +51,13 @@ function Mid {
 }
 
 
+function MidAbsolute {
+    local intLeft="$1"
+    local intRight="$(($2 - $intLeft))"
+    local string="$3"
+
+    echo "${string: $intLeft:$intRight}"
+}
 function MidToStart {
     local length="$1"
     local string="$2"
