@@ -115,9 +115,16 @@ function GetFileLinks { GetSymbolicLinks "$1" "file"; }
 function GetSymbolicLinks {
     local directory="$(Trim "$1")"
     local linkType="$(Trim "$2")"
+    local recursive="$(IfTrimNotEmpty "$3" false)"
 
-    local links="$(find "$(Trim "$directory")" -type l)"
     local symbolicLinks
+    local links
+
+
+    if $recursive;
+    then links="$(find -L "$(Trim "$directory")" -xtype l)"
+    else links="$(find "$(Trim "$directory")" -type l)"
+    fi
 
 
     while IFS= read -r link; do
@@ -132,30 +139,9 @@ function GetSymbolicLinks {
 
     echo "$symbolicLinks"
 }
-function GetSymbolicLinks_Recursive {
-    local directory="$(Trim "$1")"
-    local linkType="$(Trim "$2")"
-
-    local keepSearching=true
-    local symbolicLinks
-    local link
-
-
-    while $keepSearching; do
-        if [[ "$linkType" == "folder" ]]; then
-        link="$(GetFolderLinks "$directory")"
-        elif [[ "$linkType" == "file" ]]; then
-        link="$(GetFileLinks "$directory")"
-        fi
-
-        $(IsEmpty "$(Trim "$link")") && keepSearching=false
-        symbolicLinks="$symbolicLinks"$'\n'"$link"
-    done
-    symbolicLinks="$(SmlCutLines_Empty "$symbolicLinks")"
-
-
-    echo "$symbolicLinks"
-}
+function GetFolderLinks_Recursive { GetSymbolicLinks_Recursive "$1" "folder"; }
+function GetFileLinks_Recursive { GetSymbolicLinks_Recursive "$1" "file"; }
+function GetSymbolicLinks_Recursive { GetSymbolicLinks "$@" true; }
 
 
 function FolderHierarchy {
