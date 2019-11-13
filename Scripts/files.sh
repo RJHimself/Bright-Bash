@@ -88,6 +88,16 @@ function StatusFile_WriteStatus {
 function CountArguments { echo "$#"; }
 
 
+function UpdateFolderLink { echo $(CreateFolderLink "$1"); }
+function CreateFolderLink {
+    local file="$(SwitchDirSymbols "$1")"
+    local link="$(SwitchDirSymbols "$2")"
+
+    #? Sudo / Admin / Root Support
+    if $(IsAdmin); then sudo ln -sf "$file" "$link"
+    else ln -sf "$file" "$link"
+    fi
+}
 function UpdateFileLink { echo $(CreateFileLink "$1"); }
 function CreateFileLink {
     local file="$(SwitchDirSymbols "$1")"
