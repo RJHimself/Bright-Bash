@@ -110,6 +110,21 @@ function CreateFileLink {
 }
 
 
+function GetSymbolicLinks { find "$(Trim "$1")" -type l; }
+function GetFolderLinks {
+    local directory="$(Trim "$1")"
+    local links="$(GetSymbolicLinks "$(Trim "$1")")"
+    local folderLinks
+
+    while IFS= read -r link; do
+    $(IsFolder "$link") && folderLinks="$folderLinks"$'\n'"$link"
+    done <<< "$links"
+    folderLinks="$(SmlCutLines_Empty "$folderLinks")"
+
+    echo "$folderLinks"
+}
+
+
 function FolderHierarchy {
     if $(VariableNotExists "$1"); then return; fi
 
