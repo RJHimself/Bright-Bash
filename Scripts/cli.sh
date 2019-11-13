@@ -1,6 +1,3 @@
-#!/bin/bash
-
-
 function executable-header {
     local file="$(Trim "$1")"
 
