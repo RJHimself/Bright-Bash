@@ -132,6 +132,30 @@ function GetSymbolicLinks {
 
     echo "$symbolicLinks"
 }
+function GetSymbolicLinks_Recursive {
+    local directory="$(Trim "$1")"
+    local linkType="$(Trim "$2")"
+
+    local keepSearching=true
+    local symbolicLinks
+    local link
+
+
+    while $keepSearching; do
+        if [[ "$linkType" == "folder" ]]; then
+        link="$(GetFolderLinks "$directory")"
+        elif [[ "$linkType" == "file" ]]; then
+        link="$(GetFileLinks "$directory")"
+        fi
+
+        $(IsEmpty "$(Trim "$link")") && keepSearching=false
+        symbolicLinks="$symbolicLinks"$'\n'"$link"
+    done
+    symbolicLinks="$(SmlCutLines_Empty "$symbolicLinks")"
+
+
+    echo "$symbolicLinks"
+}
 
 
 function FolderHierarchy {
