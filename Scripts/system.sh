@@ -23,7 +23,7 @@ function AddToPath {
     NewPath="$(SmlTrim "$NewPath")"
 
     NewPath="$(SwitchDirSymbols "$NewPath")"
-    NewPath="$(ListDir "$NewPath" "D")"
+    NewPath="$(ListDir "$NewPath" "D" "R")"
     NewPath="$(SmlCutLines_Empty "$NewPath")"
     NewPath="$(SmlTrim "$NewPath")"
 
@@ -61,7 +61,7 @@ function AddToPythonPath {
     NewPath="$(SmlTrim "$NewPath")"
 
     NewPath="$(SwitchDirSymbols "$NewPath")"
-    NewPath="$(ListDir "$NewPath" "D")"
+    NewPath="$(ListDir "$NewPath" "D" "R")"
     NewPath="$(SmlCutLines_Empty "$NewPath")"
     NewPath="$(SmlTrim "$NewPath")"
 
