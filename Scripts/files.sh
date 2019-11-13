@@ -12,8 +12,8 @@ function DirectoryNotExists { $(DirectoryExists "$@") && echo false || echo true
 
 
 function RelativePath_After {
-    local file="$(SwitchDirSymbols_File "$1")"
-    local afterPath="$(Trim "$2")"
+    local afterPath="$(Trim "$1")"
+    local file="$(SwitchDirSymbols_File "$2")"
 
     local originalfileName="$(GetFileName "$file")"
 
