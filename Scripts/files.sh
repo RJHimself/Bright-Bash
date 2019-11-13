@@ -11,7 +11,7 @@ function FolderNotExists { $(FolderExists "$@") && echo false || echo true; }
 function DirectoryNotExists { $(DirectoryExists "$@") && echo false || echo true; }
 
 
-function FileRelativePath_After {
+function RelativePath_After {
     local file="$(SwitchDirSymbols_File "$1")"
     local afterPath="$(Trim "$2")"
 
