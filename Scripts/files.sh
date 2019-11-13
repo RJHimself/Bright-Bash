@@ -22,8 +22,8 @@ function RelativePath_After {
     local relativePath="$(MidAbsolute $relativePath_start $relativePath_end "$file")"
 
 
-    [[ "$(Left 1 "$relativePath")" != "/" ]] && relativePath="/$relativePath"
-    [[ "$(Right 1 "$relativePath")" != "/" ]] && relativePath="$relativePath/"
+    [[ "$(Left 1 "$relativePath")" == "/" ]] && relativePath="$(Exclude_First 1 "$relativePath")"
+    [[ "$(Right 1 "$relativePath")" == "/" ]] && relativePath="$(Exclude_Last 1 "$relativePath")"
 
 
     echo "$relativePath"
