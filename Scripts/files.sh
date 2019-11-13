@@ -110,18 +110,27 @@ function CreateFileLink {
 }
 
 
-function GetSymbolicLinks { find "$(Trim "$1")" -type l; }
-function GetFolderLinks {
+function GetFolderLinks { GetSymbolicLinks "$1" "folder"; }
+function GetFileLinks { GetSymbolicLinks "$1" "file"; }
+function GetSymbolicLinks {
     local directory="$(Trim "$1")"
-    local links="$(GetSymbolicLinks "$(Trim "$1")")"
-    local folderLinks
+    local linkType="$(Trim "$2")"
+
+    local links="$(find "$(Trim "$directory")" -type l)"
+    local symbolicLinks
+
 
     while IFS= read -r link; do
-    $(IsFolder "$link") && folderLinks="$folderLinks"$'\n'"$link"
+        if [[ "$linkType" == "folder" ]]; then
+        $(IsFolder "$link") && symbolicLinks="$symbolicLinks"$'\n'"$link"
+        elif [[ "$linkType" == "file" ]]; then
+        $(IsFile "$link") && symbolicLinks="$symbolicLinks"$'\n'"$link"
+        fi
     done <<< "$links"
-    folderLinks="$(SmlCutLines_Empty "$folderLinks")"
+    symbolicLinks="$(SmlCutLines_Empty "$symbolicLinks")"
 
-    echo "$folderLinks"
+
+    echo "$symbolicLinks"
 }
 
 
