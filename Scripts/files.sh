@@ -11,6 +11,21 @@ function FolderNotExists { $(FolderExists "$@") && echo false || echo true; }
 function DirectoryNotExists { $(DirectoryExists "$@") && echo false || echo true; }
 
 
+function FileRelativePath_After {
+    local file="$(SwitchDirSymbols_File "$1")"
+    local afterPath="$(Trim "$2")"
+
+    local originalfileName="$(GetFileName "$file")"
+
+    local relativePath_start=$(($(Length "$afterPath") + $(IndexOf "$afterPath" "$file")))
+    local relativePath_end=$(($(Length "$file") - $(Length "$originalfileName")))
+    local relativePath="$(MidAbsolute $relativePath_start $relativePath_end "$file")"
+
+
+    echo "$relativePath"
+}
+
+
 function IsFile { echo $(FileExists "$@"); }
 function IsFolder { echo $(FolderExists "$@"); }
 
