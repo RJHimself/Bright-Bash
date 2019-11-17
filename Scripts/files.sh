@@ -681,3 +681,32 @@ function Wait_EndOfChanges {
     sudo rm -f "$fileStatus"
     # There were No changes for this Amount of Time: $waitTime
 }
+
+function Wait_EndOfChanges_File {
+    # EXAMPLE: Waiting 5 Min / 30 Seconds to end this Changes
+    # Wait_EndOfChanges 300
+
+
+    local waitTime=$(IfTrimNotEmpty "$1" "30")
+    local file="$(IfTrimNotEmpty "$2" "$PWD")"
+    file="$(SwitchDirSymbols_File "$file")"
+
+    local fileStatus="$(StatusFile true)"
+    local keepWaiting=true
+
+
+    onchange "$file" -- sed -i "1 s/^.*$/true/" "$fileStatus" &
+    StatusFile_WriteStatus "true" "$fileStatus"
+
+    while $keepWaiting; do
+        StatusFile_WriteStatus "false" "$fileStatus"
+        sleep $waitTime
+        keepWaiting=$(StatusFile_GetStatus "$fileStatus")
+    done
+
+
+    # Removing Temp Data
+    KillProcessesPID "onchange"
+    sudo rm -f "$fileStatus"
+    # There were No changes for this Amount of Time: $waitTime
+}
