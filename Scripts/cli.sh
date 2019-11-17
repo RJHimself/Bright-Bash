@@ -22,7 +22,7 @@ function convert-to-cli {
         local file="$(Trim "$1")"
 
 
-        if [[ "$first_line" != "$fileHeader" ]]; then echo false; return; fi
+        if [[ "$(Left "$(Length "$fileHeader")" "$first_line")" != "$fileHeader" ]]; then echo false; return; fi
         if $(IsEmpty "$second_line"); then echo false; return; fi
         if [[ "$(Left "$(Length "$executable_name_after")" "$second_line")" != "$executable_name_after" ]]; then echo false; return; fi
 
@@ -65,7 +65,6 @@ function convert-to-cli {
         local second_line="$(SmlGetLine 1 "$(ReadFile "$file")")"
         local second_line_content=""
         second_line="$(Trim "$second_line")"
-
 
         if $(allow-file "$file"); then
             second_line_content="$(Trim "$(MidToEnd "$(Length "$executable_name_after")" "$second_line")")"
