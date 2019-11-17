@@ -153,9 +153,12 @@ function SmlGetLine {
 
 
     while IFS= read -r line; do
-    [[ $tmpIntLine == $intLine ]] && echo "$line"
+    if [[ $tmpIntLine == $intLine ]]; then echo "$line"; return; fi
     let "tmpIntLine++"
     done <<< "$fullString"
+
+
+    echo ""
 }
 function SmlAddLines {
     local lineToAdd="$(Trim "$1")"
