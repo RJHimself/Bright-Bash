@@ -156,6 +156,17 @@ function UCase { echo "$(echo "$1" | tr '[:lower:]' '[:upper:]')"; }
 
 
 function ToCase {
+    function ConvertBasics {
+        local replacer="$1"
+        local englobber="$2"
+
+        englobber="$(Replace " " "$replacer" "$englobber")"
+        englobber="$(Replace "-" "$replacer" "$englobber")"
+        englobber="$(Replace "_" "$replacer" "$englobber")"
+
+        echo "$englobber"
+    }
+
     local name="$(Trim "$1")"
     local caseType="$(IfTrimNotEmpty "$2" "camel")"
     caseType="$(LCase "$caseType")"
@@ -164,9 +175,13 @@ function ToCase {
     case "$caseType" in
     "snake")
         name="$(LCase "$name")"
-        name="$(Replace "-" "_" "$name")"
+        name="$(ConvertBasics "_" "$name")"
     ;;
     "camel")
+    ;;
+    "kebab")
+        name="$(LCase "$name")"
+        name="$(ConvertBasics "-" "$name")"
     ;;
     esac
 
