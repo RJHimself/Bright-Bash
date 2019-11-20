@@ -124,10 +124,25 @@ function GitCloneAll {
     git pull --all
 }
 function GitCloneLibrary {
+    local repo="$(Trim "$1")"
+    local folder="$(IfTrimNotEmpty "$2" "$PWD")"
 
+    local repoName="$(Gh_GetRepoName "$repo")"
+    local finalFolder="$folder/$repoName"
+
+    CreateFolder "$finalFolder"
+    git clone "$repo" "$finalFolder"
 }
 function GitSourceCloneLibrary {
-    
+    local repo="$(Trim "$1")"
+    local folder="$(Trim "$2")"
+    local toSource="$(Trim "$3")"
+
+    local repoName="$(Gh_GetRepoName "$repo")"
+    local finalFolder="$folder/$repoName"
+
+    GitCloneLibrary "$repo" "$folder"
+    ExeOnDir "source \"$toSource\"" "$finalFolder"
 }
 
 
