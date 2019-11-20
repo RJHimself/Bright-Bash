@@ -93,6 +93,8 @@ function CreateFolderLink {
     local file="$(SwitchDirSymbols "$1")"
     local link="$(SwitchDirSymbols "$2")"
 
+    sudo rm -rf "$link"
+
     #? Sudo / Admin / Root Support
     if $(IsAdmin); then sudo ln -s "$file" "$link"
     else ln -s "$file" "$link"
@@ -102,7 +104,6 @@ function UpdateFileLink { echo $(CreateFileLink "$1"); }
 function CreateFileLink {
     local file="$(SwitchDirSymbols "$1")"
     local link="$(SwitchDirSymbols "$2")"
-
 
     sudo rm -rf "$link"
 
