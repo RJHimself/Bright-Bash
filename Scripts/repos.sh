@@ -137,8 +137,9 @@ function GitSourceCloneLibrary {
     local repo="$(Trim "$1")"
     local folder="$(Trim "$2")"
     local toSource="$(Trim "$3")"
+    local caseType="$(Trim "$4")"
 
-    local repoName="$(Gh_GetRepoName "$repo")"
+    local repoName="$(ToCase "$(Gh_GetRepoName "$repo")" "snake")"
     local finalFolder="$folder/$repoName"
 
     GitCloneLibrary "$repo" "$folder"
