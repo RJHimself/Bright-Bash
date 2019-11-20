@@ -126,8 +126,9 @@ function GitCloneAll {
 function GitCloneLibrary {
     local repo="$(Trim "$1")"
     local folder="$(IfTrimNotEmpty "$2" "$PWD")"
+    local caseType="$(Trim "$3")"
 
-    local repoName="$(Gh_GetRepoName "$repo")"
+    local repoName="$(ToCase "$(Gh_GetRepoName "$repo")" "$caseType")"
     local finalFolder="$folder/$repoName"
 
     CreateFolder "$finalFolder"
@@ -139,10 +140,10 @@ function GitSourceCloneLibrary {
     local toSource="$(Trim "$3")"
     local caseType="$(Trim "$4")"
 
-    local repoName="$(ToCase "$(Gh_GetRepoName "$repo")" "snake")"
+    local repoName="$(ToCase "$(Gh_GetRepoName "$repo")" "$caseType")"
     local finalFolder="$folder/$repoName"
 
-    GitCloneLibrary "$repo" "$folder"
+    GitCloneLibrary "$repo" "$folder" "$caseType"
     ExeOnDir "source \"$toSource\"" "$finalFolder"
 }
 
