@@ -123,6 +123,12 @@ function GitCloneAll {
     git fetch --all
     git pull --all
 }
+function GitCloneLibrary {
+
+}
+function GitSourceCloneLibrary {
+    
+}
 
 
 function GitRestartTest {
