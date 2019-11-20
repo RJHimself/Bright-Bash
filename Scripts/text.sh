@@ -155,6 +155,26 @@ function LCase { echo "$(echo "$1" | tr '[:upper:]' '[:lower:]')"; }
 function UCase { echo "$(echo "$1" | tr '[:lower:]' '[:upper:]')"; }
 
 
+function ToCase {
+    local name="$(Trim "$1")"
+    local caseType="$(IfTrimNotEmpty "$2" "camel")"
+    caseType="$(LCase "$caseType")"
+
+
+    case "$caseType" in
+    "snake")
+        name="$(LCase "$name")"
+        name="$(Replace "-" "_" "$name")"
+    ;;
+    "camel")
+    ;;
+    esac
+
+
+    echo "$name"
+}
+
+
 function FirstLCase { echo "$(LCase "$(FirstUCase "$1")")"; }
 function FirstUCase {
     local string="$(UCase "$(Trim "$1")")"
