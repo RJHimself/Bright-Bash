@@ -94,8 +94,8 @@ function CreateFolderLink {
     local link="$(SwitchDirSymbols "$2")"
 
     #? Sudo / Admin / Root Support
-    if $(IsAdmin); then sudo ln -sf "$file" "$link"
-    else ln -sf "$file" "$link"
+    if $(IsAdmin); then sudo ln -s "$file" "$link"
+    else ln -s "$file" "$link"
     fi
 }
 function UpdateFileLink { echo $(CreateFileLink "$1"); }
