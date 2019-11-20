@@ -103,6 +103,9 @@ function CreateFileLink {
     local file="$(SwitchDirSymbols "$1")"
     local link="$(SwitchDirSymbols "$2")"
 
+
+    sudo rm -rf "$link"
+
     #? Sudo / Admin / Root Support
     if $(IsAdmin); then sudo ln -sf "$file" "$link"
     else ln -sf "$file" "$link"
