@@ -36,33 +36,6 @@ function Gh_GetRepoName {
     echo $gitRepo
 }
 
-function GitCloneAll {
-    # ONE LINER
-    # git branch -a | grep -v HEAD | perl -ne 'chomp($_); s|^\*?\s*||; if (m|(.+)/(.+)| && not $d{$2}) {print qq(git branch --track $2 $1/$2\n)} else {$d{$_}=1}' | csh -xfs
-
-    local repoUrl="$1"
-    local repoLocal="$2"
-    local repo="$(Gh_GetRepoName "$repoUrl")"
-
-
-    git clone "$repoUrl" "$repoLocal"
-    cd "$repo"
-
-    local remoteBranches=$(git branch --all | grep '^\s*remotes' | egrep --invert-match '(:?HEAD|master)$')
-
-    for branch in $remoteBranches; do
-        git branch --track "${branch##*/}" "$branch"
-    done
-
-
-    # branch="gnome-apt"
-    # git checkout -b $brancha
-    # git branch --set-upstream-to=origin/$branch $branch
-
-    git fetch --all
-    git pull --all
-}
-
 function GitGetChanges {
     local fromDir="$(Trim "$1")"
     local toDir="$(Trim "$2")"
@@ -124,6 +97,32 @@ function GitPushAll {
 
 
 function GitCloneTo { ExeOnDir "git clone \"$(Trim "$2")\"" "$(Trim "$1")"; }
+function GitCloneAll {
+    # ONE LINER
+    # git branch -a | grep -v HEAD | perl -ne 'chomp($_); s|^\*?\s*||; if (m|(.+)/(.+)| && not $d{$2}) {print qq(git branch --track $2 $1/$2\n)} else {$d{$_}=1}' | csh -xfs
+
+    local repoUrl="$1"
+    local repoLocal="$2"
+    local repo="$(Gh_GetRepoName "$repoUrl")"
+
+
+    git clone "$repoUrl" "$repoLocal"
+    cd "$repo"
+
+    local remoteBranches=$(git branch --all | grep '^\s*remotes' | egrep --invert-match '(:?HEAD|master)$')
+
+    for branch in $remoteBranches; do
+        git branch --track "${branch##*/}" "$branch"
+    done
+
+
+    # branch="gnome-apt"
+    # git checkout -b $brancha
+    # git branch --set-upstream-to=origin/$branch $branch
+
+    git fetch --all
+    git pull --all
+}
 
 
 function GitRestartTest {
