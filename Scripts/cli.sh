@@ -53,7 +53,12 @@ function convert-to-cli {
     then echo "Original Directory doesn't exists"; return; fi
 
 
-    local files="$(find "$originalDirectory"**/*."$filetype" -type f)"
+	local oldDir="$PWD"
+    local newDir="$originalDirectory"
+    cd "$newDir"
+    local files="$(find -name "*.$filetype" -not -path "./.git")"
+    cd "$oldDir"
+    # local files="$(find "$originalDirectory"**/*."$filetype" -type f)"
 
     local fileHeader="$(executable-header ".py")"
     local executable
