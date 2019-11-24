@@ -66,6 +66,7 @@ function GitSync {
     GitCommitToday "$fromDir"
 }
 
+
 function GitCommitToday {
     local dir="$(Trim "$1")"
     local tmpOldPath="$(Trim "$PWD")"
@@ -75,8 +76,17 @@ function GitCommitToday {
 
 
     cd "$dir"
-    sudo git add -A
-    sudo git commit -m "$(Today)"
+
+    git add -A
+    if [ $? -eq 0 ]; then
+        sudo git add -A
+    fi
+
+    git commit -m "$(Today)"
+    if [ $? -eq 0 ]; then
+        sudo git commit -m "$(Today)"
+    fi
+
     cd "$tmpOldPath"
 }
 
