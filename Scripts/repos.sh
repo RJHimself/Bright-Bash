@@ -78,13 +78,12 @@ function GitCommitToday {
     cd "$dir"
 
     git add -A
-    if [ $? -eq 0 ]; then
+    if [ $? -eq 0 ]; then needs_sudo=true; fi
+    if $needs_sudo; then
         sudo git add -A
-    fi
-
-    git commit -m "$(Today)"
-    if [ $? -eq 0 ]; then
         sudo git commit -m "$(Today)"
+    else
+    git commit -m "$(Today)"
     fi
 
     cd "$tmpOldPath"
