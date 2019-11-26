@@ -441,6 +441,12 @@ function DeleteLinesFrom {
 
 
 function AddLine_First { AddLine 0 "$@"; }
+function AddLine_Last {
+    local lineContent="$1"
+    local file="$(Trim "$2")"
+
+    echo "$lineContent" >> "$file"
+}
 function ReplaceLine_ByString {
     local strToFind=$(Trim "$1")
     local lineContent="$(Trim "$2")"
