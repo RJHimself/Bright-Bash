@@ -1,7 +1,9 @@
-function GitHistoryTree { git-history-tree "$@"; }
-function GitChangesTree { git-changes-tree "$@"; }
+function git-history { git-history-tree "$@"; }
+function git-changes { git-changes-tree "$@"; }
 function git-history-tree { ExeOnDir "git log --graph --oneline --all" "$@"; }
 function git-changes-tree { ExeOnDir "git tree" "$@"; }
+function GitHistoryTree { git-history-tree "$@"; }
+function GitChangesTree { git-changes-tree "$@"; }
 
 
 function FindLink {
