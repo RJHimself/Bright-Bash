@@ -123,7 +123,7 @@ function GitCloneAll {
     local remoteBranches=$(git branch --all | grep '^\s*remotes' | egrep --invert-match '(:?HEAD|master)$')
 
     for branch in $remoteBranches; do
-        git branch --track "${branch##*/}" "$branch"
+    git branch --track "${branch##*/}" "$branch"
     done
 
 
