@@ -117,7 +117,10 @@ function GitCloneAll {
     local repo="$(Gh_GetRepoName "$repoUrl")"
 
 
-    git clone "$repoUrl" "$repoLocal"
+    if $(IsNotEmpty "$repoLocal");
+    then git clone "$repoUrl" "$repoLocal"
+    else git clone "$repoUrl"
+    fi
     cd "$repo"
 
     local remoteBranches=$(git branch --all | grep '^\s*remotes' | egrep --invert-match '(:?HEAD|master)$')
