@@ -179,6 +179,13 @@ function DconfSettings_Only {
 }
 
 
+function DconfBackup {
+    local location="$(IfTrimNotEmpty "$1" "$PWD")"
+
+    dconf dump / > "$location/dconf_settings.txt"
+}
+
+
 function IsAdmin { HasSudo; }
 function IsRoot { [[ $EUID -ne 0 ]] && echo false || echo true; }
 
