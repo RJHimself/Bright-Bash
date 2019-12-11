@@ -123,6 +123,13 @@ function CleanTemp { sudo rm -rf "/tmp/"*; }
 function CleanTmp { CleanTemp; }
 
 
+function DconfBackup {
+    local location="$(IfTrimNotEmpty "$1" "$PWD")"
+
+    dconf dump / > "$location/dconf_settings.txt"
+}
+
+
 function DconfSettings {
     # ------------ Examples ------------
     # > Upload:
@@ -176,13 +183,6 @@ function DconfSettings_Only {
     elif $(IsUpload "$loadingWay"); then dconf write "$location" "$(ReadFile "$toDir""$name.txt")"
     else echo "dconfSettings can NOT Understand what ya mean by this: $loadingWay"
     fi
-}
-
-
-function DconfBackup {
-    local location="$(IfTrimNotEmpty "$1" "$PWD")"
-
-    dconf dump / > "$location/dconf_settings.txt"
 }
 
 
